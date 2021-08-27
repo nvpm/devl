@@ -1,0 +1,58 @@
+case newp : create.newProjectFile{
+
+  actors              {
+
+    p:user {
+      human,
+      script
+    }
+
+  }
+  description         {
+
+    Creates a new project file descriptor and saves it
+    in a folder stored by a variable
+
+  }
+  version             {
+
+    v1.0.0
+
+  }
+  trigger             {
+
+    p:user
+
+  }
+  frequency           {
+
+    low
+
+  }
+  preconditions       {
+
+    [condition 1] loaded session{
+
+      a neovim session must be fully loaded
+
+    }
+
+  }
+  posconditions       {
+
+    C1: a skelleton project file is created
+    C2: the product of $C1 is loaded
+
+  }
+  flows               {
+
+    main {
+    }
+    altn {
+    }
+    excp {
+    }
+
+  }
+
+}

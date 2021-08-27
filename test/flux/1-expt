@@ -1,0 +1,24 @@
+{
+  'name' : '1-inpt',
+  'root' : '.',
+  'last' : 0,
+  'list' : [{
+    'name' : 'p1',
+    'root' : 'pr1',
+    'last' : 0,
+    'list' : [{
+      'name' : 'w1',
+      'root' : 'wr1',
+      'last' : 0,
+      'list' : [{
+        'name' : 't1',
+        'root' : 'tr1',
+        'last' : 0,
+        'list' : [
+          {'name':'b1','file':'file1'},
+          {'name':'b2','file':'file2'},
+          {'name':'t1','comm':'ranger'}
+        ]
+      }]
+    }]
+}]}

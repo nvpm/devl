@@ -1,0 +1,26 @@
+  ▶ INTRODUCTION                                                             {
+
+  This  software  is  one  of the NVPM plugins that helps the user to manage a
+  large amount of ASCII files in an easy way. It allows the user to tell which
+  files  should  be  opened  upon  certain  commands and events. The files are
+  annotated into what is called "project file" (PF).
+
+  These  project  files  are  written  in a language defined in the "synx.sng"
+  file.  It's a human readable syntax markup language that use common terms in
+  any  project  meta  information, such as: "projects", "files", "workspaces",
+  "terminals", "tabs", and others.
+
+                                                                             }
+  ▶ COMMAND USER INTERFACING                                                 {
+
+  The  command  interfacing  for  the  .-  NVPMProjLoad: load a PF
+  "proj" plugin will make it possible  |   NVPMProjNext: jump to next node
+  to  use  various  of its functions,  |   NVPMProjPrev: jump to previous node
+  such as:                             |   NVPMProjSave: save a PF as default
+                                     --´   NVPMProjMake: create a new PF
+                                           NVPMProjEdit: open PF editing area
+                                           NVPMProjTerm: open the terminal
+                                           NVPMProjLove: open the loved PF
+                                           NVPMProjDrop: open the loved PF
+
+                                                                             }

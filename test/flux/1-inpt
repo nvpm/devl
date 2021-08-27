@@ -1,0 +1,7 @@
+project p1:pr1 # {
+  workspace w1:wr1
+    tab t1:tr1
+      file b1:file1
+      file b2:file2
+      term t1:ranger
+# }

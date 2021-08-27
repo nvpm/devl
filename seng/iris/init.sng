@@ -1,0 +1,20 @@
+This software is a neovim plugin that will serve two main purposes:
+
+1) will be the official color manager for nvpm products
+2) will be a colorscheme generator
+3) will be a colorizer for colors in various types (RGB, HEX, TERM)
+
+Iris will be able to recognize a theme file that will carry color definitions to
+be  used to colorize any highlight group, regardless if it's built-in defined or
+otherwise.
+
+Since  iris doesn't ignore built-in groups, this has a great potential for being
+a colorscheme  generator.  In  fact,  it  will always regenerate the colorscheme
+every  time  the  user  chooses  to  change  at  lest one color definition. This
+regeneration  process  will  proceed  partially or integrally, depending on user
+defined configuration. 
+
+The  theme file will be written by the user which will have to learn its syntax.
+It's  a  syntax  that  will  allow  features  such as scalars, dictionaries, and
+addition  operation on certain conditions. The full reference for this syntax is
+described into "synx" file.

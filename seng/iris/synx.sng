@@ -1,0 +1,51 @@
+  This  file  serves as a place for brainstorming the syntax, in order to find
+  the best way  of  doing  this.  It's  probably  gonna  change as soon as the
+  software development starts. It's not the best scenario,  but  shit happens.
+  But it's paramount that the syntax never changes after it's released.
+
+  The  language  itself must be of simple understanding, that explores already
+  concepts from various programming and markup languages. The following is the
+  first attempt for this.
+
+  scalars: 
+    name = value
+    name = $ref
+
+    cr1 = #0000ff , guibg1 = black
+    cr2 = #00ffff , guibg2 = blue
+    cr3 = magenta , guibg3 = yellow
+
+  and they are referenced by prefixing a dollar sign to its name. For example,
+  to  use  the  color  yellow in the list above, one must do "$guibg3". If the
+  user wants to assign a  buch  of scalars in the same line, then a comma must
+  be used to separate each assignment.
+
+  dictionaries:
+    1) name = [key2=value,key2=val]
+    2) name = [           key2=new] << $ref
+    3) name = [           key2=new] << $ref+number
+    4) name = [           key2=new] << $ref+$valref
+    5) name = $ref
+    6) name = +number
+    7) name = $ref+number
+    8) name = $ref+$valref
+
+  iris {
+
+    gs1 = #ffffff , gu1 = #aaaaaa
+    gs2 = #00ff00 , gu2 = #aaaaaa
+    gs3 = #0000ff , gf1 = #1f1f1f 
+    gs4 = #ff0000
+    gs5 = #aaaaaa
+
+    s.n = [gfg=$gs1 , gbg=$gs2] # {
+    s.i = [           gbg=$gs3] << $s.n
+    s.v = [           gbg=$gs4] << $s.n 
+    # }
+    u.n = [gfg=$gu1 , gfg=$gu2] # {
+    u.i =+3
+    u.v =+3                     
+    # }
+    f   = [gbg=$gf1]
+
+  end}

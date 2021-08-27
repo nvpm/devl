@@ -1,0 +1,16 @@
+This  software is a Neovim plugin that helps the user to set both the status and
+tab lines, being compatible with NVPM plugins. The main goal in the beginning is
+to  only  provide  support  for  NVPM  plugin,  but  in  the  future, it might a
+independent plugin.
+
+It  will  work by feeding the system with a scheme file with a yet to be created
+easy  and  independent  markup  language  file  to  decide structure, looks, and
+possibly behaviour.
+
+The  syntax  file  should carry definitions of colors, lists and definitions for
+what  the  top  and  bottom  lines - aka tab and statuslines - will contain. The
+syntax should be compatible with other NVPM plugins that also deal with the same
+elements as NVPM Line. This way, NVPM users will have to learn the little markup
+language as possible.
+
+

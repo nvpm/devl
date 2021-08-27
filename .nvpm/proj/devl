@@ -1,0 +1,131 @@
+# TESTS{
+
+*workspace TESTS
+  tab init
+    buff init: test/init.vim
+  tab proj
+    buff pf: .nvpm/proj/proj
+  *tab 1-flux
+    buff expt: test/flux/1-expt
+    buff inpt: test/flux/1-inpt
+  *tab 2-flux
+    buff expt: test/flux/2-expt
+    buff inpt: test/flux/2-inpt
+  *tab 3-flux
+    buff expt: test/flux/3-expt
+    buff inpt: test/flux/3-inpt
+  *tab 4-flux
+    buff expt: test/flux/4-expt
+    buff inpt: test/flux/4-inpt
+  *tab file
+    buff read: test/file/read
+    buff orig: test/file/orig
+    buff dest: test/file/dest
+# }
+# proj {
+
+workspace proj
+  tab proj
+    buff auto: plug/proj/autoload/proj.vim
+    buff plug: plug/proj/plugin/proj.vim
+    buff pf: .nvpm/proj/proj
+  tab test
+    buff init: test/init.vim
+    buff nvpm: /i/proj/save/nvpm/plugin/nvpm.vim
+   *buff patt: /i/apps/share/nvim/runtime/doc/pattern.txt
+  *tab meta
+    buff vers: plug/proj/version
+    buff docx: plug/proj/doc/proj.txt
+    buff read: plug/proj/README.md
+
+# }
+# flux {
+
+workspace flux
+  tab flux
+    buff auto: plug/flux/autoload/flux.vim
+    buff data: data/flux/data
+   *buff seng: seng/proj/data.sng
+   *buff plug: plug/flux/plugin/flux.vim
+  tab test
+    buff init: test/init.vim
+    buff nvpm: /i/proj/save/nvpm/plugin/nvpm.vim
+   *buff patt: /i/apps/share/nvim/runtime/doc/pattern.txt
+ *tab meta
+    buff vers: plug/flux/version
+   *buff docx: plug/flux/doc/flux.txt
+   *buff read: plug/flux/README.md
+
+# }
+# zoom {
+
+*workspace zoom
+  tab zoom
+    buff auto: plug/zoom/autoload/zoom.vim
+    buff plug: plug/zoom/plugin/zoom.vim
+  tab meta
+    buff docx: plug/zoom/doc/zoom.txt
+    buff read: plug/zoom/README.md
+    buff vers: plug/zoom/version
+
+# }
+# rgex {
+
+*workspace rgex
+  tab rgex
+    buff auto: plug/rgex/autoload/rgex.vim
+   *buff plug: plug/rgex/plugin/rgex.vim
+  tab meta
+    buff vers: plug/rgex/version
+   *buff docx: plug/rgex/doc/rgex.txt
+    buff read: plug/rgex/README.md
+
+# }
+# test {
+
+*workspace test
+  tab test
+    buff auto: plug/test/autoload/test.vim
+   *buff plug: plug/test/plugin/test.vim
+  tab meta
+    buff vers: plug/test/version
+   *buff docx: plug/test/doc/test.txt
+   *buff read: plug/test/README.md
+
+# }
+# text {
+
+*workspace text
+  tab text
+    buff auto: plug/text/autoload/text.vim
+    buff plug: plug/text/plugin/text.vim
+  tab meta
+   *buff docx: plug/text/doc/text.txt
+   *buff read: plug/text/README.md
+    buff vers: plug/text/version
+
+# }
+# file {
+
+*workspace file
+  tab file
+    buff auto: plug/file/autoload/file.vim
+   *buff plug: plug/file/plugin/file.vim
+  tab meta
+    buff vers: plug/file/version
+   *buff docx: plug/file/doc/file.txt
+   *buff read: plug/file/README.md
+
+# }
+# meta {
+
+*workspace meta
+  tab conf
+    buff devl: conf/devl.vim
+    buff user: conf/user.vim
+  tab main
+    buff make: makefile
+    buff repo: repo
+  tab docs
+    buff read: README.md
+# }

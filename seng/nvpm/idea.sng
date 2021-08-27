@@ -1,0 +1,10 @@
+idea nvpm-menu{
+
+A menu-like  interfacing  will  be necessary to accomodate all the function from
+nvpm  plugins,  and  display  them  in an easy way, in which the function can be
+activated  by  temporary key-bindings. It's possible that this will be triggered
+by a command simply called ":NVPM" without any arguments.
+
+More information will come in due time!
+
+}

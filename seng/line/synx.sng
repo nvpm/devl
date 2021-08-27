@@ -1,0 +1,40 @@
+iris {
+
+  gs1 = #ffffff  gu1 = #aaaaaa
+  gs2 = #00ff00  gu2 = #aaaaaa
+  gs3 = #0000ff  gf1 = #1f1f1f 
+  gs4 = #ff0000
+  gs5 = #aaaaaa
+
+  s.n = [gfg=$gs1 , gbg=$gs2] # {
+  s.i = [           gbg=$gs3] << $s.n
+  s.v = [           gbg=$gs4] << $s.n 
+  # }
+  u.n = [gfg=$gu1 , gfg=$gu2] # {
+  u.i =+3
+  u.v =+3                     
+  # }
+  f   = [gbg=$gf1]
+
+end}
+line {
+
+-----------------------------------
+  m = [ssrd=,usrd=,scr=$s,ucr=$u]
+  n = [ssrd=,usrd=] << $r 
+  g = 
+  v = %y%m %l,%c/%P
+-----------------------------------
+
+  w = wkps($m).name
+  t = tabs($n)
+  b = bufs($t)
+
+  g = gith($g)
+  r = nvim($v)
+  f = iris($f)
+
+end}
+
+#topline = [$t   $f $w]
+ botline = [$g$b $f $r]

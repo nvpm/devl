@@ -1,0 +1,35 @@
+The  nvpm  repository - placed at "nvpm/nvpm" in the nvpm organization - will be
+the location from which the user will be able to acquire all nvpm the plugins at
+once.  It  also  provides  the "nvpm" plugin itself, which will provides general
+user interfacing for all plugins. Also, it will contain a bunch of configuration
+examples, which will be accessible from within the nvpm plugin.
+
+file {
+
+Global nvpm files {
+
+nvpm_folder: "stdpath('config')/nvpm"
+
+  ~/.config/nvim/nvpm
+    │
+    ├── flux/
+    ├── iris/
+    ├── nvpm/
+    ├── proj/
+    ├── nvpm.conf
+    └── proj.conf
+
+Each  folder  will  have  the  information the user creates throughout time.
+
+In  the  root folder, there will be "*.conf" files for the configuration of each
+plugin  by  using  one of the flux defined languages. This will be important for
+those who still don't know much about Vim and Neovim configuration.
+
+}
+Local  nvpm files {
+
+nvpm_local_folder: ".nvpm"
+
+}
+
+}

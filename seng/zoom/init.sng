@@ -1,0 +1,78 @@
+This  software  is  a  Neovim  plug-in for no-distraction mode to be used in the
+editor.  The  distraction mode can be achieved by concentrating the editing area
+in  the middle of the screen, and switching off the rest around it. By doing so,
+the  impression  is  that  the  editor  is floating in a void vacuum, creating a
+focusing sensation while using the editor that way.
+
+It's  actually an expected sensation. The human eye is not capable of perceiving
+the  whole  screen  width,  let alone its height. Therefore, by letting the text
+area  to  occupy  the  whole screen, not only it invites writing long lines, but
+also overwhelms the writer's eyes.
+
+As  mentioned, the solution to simulate this is to force the editing area to the
+middle, but how one can accomplish this by using only built-in Neovim commands?
+
+Assuming  a  screen with dimensions "1366x76", a good fit should here is how one
+could do it:
+
+---
+terminal $nvim
+
+:set signcolumn=no
+:split
+:split
+<c-w><c-j>
+:vsplit
+:vsplit
+<c-w><c-l>
+:vertical resize 80
+:resize 35
+---
+
+After this, the layout will be something like the following:
+
+
+          +---------------------------------------------------------+
+          |                                                         |
+          |                                                         |
+          |no name                                                  |
+          +---------------+------------------------------+----------+
+          |               | <- cursor here      ^        |          |
+          |               |                     |        |          |
+          |               |                     |        |          |
+          |               |                              |          |
+          |               |                     h        |          |
+          |               |                              |          |
+          |               |                     |        |          |
+          |               |                     |        |          |
+          |               |<---------  w  ------·------->|          |
+          |               |                     |        |          |
+          |               |                     |        |          |
+          |               |                     |        |          |
+          |no name        |no name              V        |no name   |
+          +---------------+------------------------------+----------+
+          |--No lines in buffer--                                   |
+          +---------------------------------------------------------+
+
+In  this  case,  the  geometry of usable text area in the middle window would be
+w=80 and h=35. Meaning one can write a string of 80 characters without having to
+worry  about having to split it into a new line of text. On the other direction,
+the  user would have 35 rows of lines to place text. Most users won't even count
+those  numbers. Some of them spend a whole life without worrying about available
+columns to display one single line. They take it for granted until comes the day
+they  open  the  same  file in Neovim, but in a smaller screen. Them this person
+realises that of that text occupies more than that screen can display nicely. As
+side effects, that user ends up with a hard-to-read text.
+
+Even  though  the  image  above is one solution, it's not yet perfect. The image
+only  exploits  the  notion of layouts. A slight different set of commands could
+create a totally different structure. The perfect scenario is to have the middle
+window exactly or most in the middle of the screen as possible. One way of doing
+is  by  having  mouse  enabled  (set  mouse=a). This way the user can center the
+middle window in the screen and then start writing something.
+
+But another problem appears when handling this task by hand. The middle window quickly has its size changed the mouse operation.
+
+
+
+

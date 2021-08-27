@@ -1,0 +1,26 @@
+*proj.txt*                                        `A Project Manager for Neovim`
+Made in Brazil
+================================================================================
+CONTENTS                                                                  *proj*
+================================================================================
+Creator                                                                        {
+
+Itamar Soares -> `iasj@pm.me`
+telegram: `@iasjr`
+=======================================}========================================
+NVPM Groups on Gitlab and Telegram                                             {
+-> https://gitlab.com/nvpm
+
+NVPM plugins
+-> https://gitlab.com/nvpm/proj [*]
+-> https://gitlab.com/nvpm/zoom
+-> https://gitlab.com/nvpm/nvpm
+-> https://gitlab.com/nvpm/text
+
+Discussions and news on Telegram (in Portuguese and English)
+-> https://t.me/nvpmuser (group)
+-> https://t.me/nvpmnews (channel)
+
+}
+================================================================================
+vim: ft=help tw=78 isk+=<,>,\:,-,' fdm=marker fmr={,} fdl=0 fen

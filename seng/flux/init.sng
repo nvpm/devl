@@ -1,0 +1,25 @@
+Introduction                                                                   {
+
+  This software is a dependency for several nvpm products. It will provide the
+  reading  and  parsing functionalities for the many different syntaxes yet to
+  be implemented, and the ones that already are.
+
+  The main goal of flux is to read a file and transform its information into a
+  data  structure  that  is  usable  by  the caller plugin. The following is a
+  sketch of this operation:
+
+     --------                 --------                             --------
+    |        |  sends file   |        |  reads file and sends     |        |
+    | plugin | ------------> |  flux  | ------------------------> | plugin |
+    |        |      to       |        |  data structure back to   |        |
+     --------                 --------                             --------
+
+  It  is  important  to  notice  that  flux  won't  know  anything  about  the
+  implementation  details  from the client plugin. Instead, flux will define a
+  set of syntaxes that it is  capable  of handling, and the client plugin will
+  be in charge of choosing the syntax (or  syntaxes)  it wants to parse into a
+  data structure. In this sense, any misuse of the data  structure  will  be a
+  problem in the client plugin, not flux. This will turn to be quite useful to
+  spot mistakes during development.
+
+}

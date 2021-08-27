@@ -1,0 +1,27 @@
+{
+  'path' : 'test/proj/batch-01/test-02.inp',
+  'name' : 'test-02.inp'     ,
+  'root' : '.',
+  'curr' : [0,0,0,0],
+  'last' : [0,0,0,0],
+  'wlst' : [{
+    'code' : 'abcd0123',
+    'name' : 'w1',
+    'root' : 'wr1',
+    'tlst' : [{
+      'code' : 'abcd0123',
+      'name' : 't1',
+      'root' : 'tr1',
+      'blst' : [{
+        'code' : 'abcd0123',
+        'name' : 'b1',
+        'file' : 'file1',
+      },
+      {
+        'code' : 'abcd0123',
+        'name' : 'b1',
+        'comm' : 'ranger'
+      }]
+    }]
+  }]
+}

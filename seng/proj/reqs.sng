@@ -1,0 +1,192 @@
+  ▶ CHANGE WORKING DIRECTORY                                                 {
+
+  NVPM  must be able to automatically  .-  (S1) buffer  points  to  path  that
+  change    the    current    working  |        does not belong  to  project's
+  directory  into  the base directory  |        root directory.
+  path of buffer being displayed, but  |   (S2) buffer  is  forcefully   being
+  only in the following situations:    |        assigned  to  perform  cwd  as
+                                     --´        described in its project file.
+
+
+                                                                             }
+  ▶ IGNORE LOAD DEFAULT                                                      {
+
+  In  certain  situation is desirable  .-  (S1) when a nvim session  is called
+  to  ignore  the  loading of default  |        with a  filename  as argument.
+  projects. They are:                  |   (S2) when using nvim as a manpager.
+                                     --´
+
+                                                                             }
+  ▶ LOAD OF FILES ON DEMAND                                                  {
+
+  The  files  pointed  in the project  .-  This  functionality  is more likely
+  files   must  not  be  loaded  into  |   to  be  consistent  with  a  "read"
+  nvim's  buffer  when  nvpm  is done  |   operation  followed  by a "retrieve
+  loading.   In   other  words,  what  |   last  position"  operation. So it's
+  NVPMProjLoad  must  do  is  to call  |   likely to be split into two or more
+  flux   and   get   a   usable  data  |   events.
+  structure,  and  then  display  the  |
+  first  buffer  in  the  list, after  |
+  properly  retrieving  it  from  the  |
+  ".proj" file.                        |
+                                     --´
+
+                                                                             }
+  ▶ NODE RANDOM CODES                                                        {
+
+  From  the  lessons  learned  in the  .-  This  may  also  be  useful for the
+  "bug  multi-terminals",  it will be  |   problem   of   coloring  contiguous
+  profitable  to assign a unique code  |   nodes in the line plugin.
+  to  all  the  nodes  pointed in the  |
+  project  files, but only on loading  |
+  time.                                |
+                                     --´
+
+                                                                             }
+  ▶ SEVERAL WILD TERMINALS                                                   {
+
+  Proj  must  offer  not only one but  .-  Also,  the  user  will  be  able to
+  several   wild   terminals   to  be  |   assign  them to a "term" entry in a
+  accessed  from anywhere. They'll be  |   project   file   as   termX,  where
+  10  in  number  with  names ranging  |   X=[0..9]. Here is a code snippet:
+  from "term0" to "term9".             |
+                                       |           tab code
+  They'll   be   accessible   by  the  |             buff main: main.c
+  command  ":NVPMProjTerm  <number>",  |             term5
+  with  the "term0" being the default  |
+  one,   in   case  no  arguments  is  |
+  passed.                              |
+                                     --´
+
+                                                                             }
+  ▶ CREATE FILES                                                             {
+
+  The proj plugin must allow the user  .-  It  must  also  be  configurable by
+  to  tell  whether  or not to create  |   global  variable  and by some entry
+  the  file  structure pointed by the  |   in the project file itself.
+  entries  in  the project file being  |
+  loaded.                              |
+                                     --´
+
+                                                                             }
+  ▶ LOVED PROJECTS                                                           {
+
+  There  must  be  a  way to create a  .-  Once  ":NVPMProjLove" is performed,
+  list  for the most wanted projects.  |   the  proj menu must appear and show
+  The list must be divided into scope  |   options   to   saving  and  loading
+  segments,  such  as  loved  project  |   operations  for the loved or yet to
+  files,  loved  projects,  and loved  |   be loved projects.
+  workspaces.                          |
+                                     --´
+
+                                                                             }
+  ▶ AUTOMATIC PROJECT FILES                                                  {
+
+  This   feature  must  be  put  into  .-  These   actions   should  create  a
+  action  when opening operations are  |   temporary  project with those files
+  done   when   there  is  no  loaded  |   being  opened.  This  way  the user
+  project.  For example, the user may  |   will  be able to still use the same
+  want to open a nvim session just to  |   keybindings  to  navigate the files
+  check some help with ":help <key>".  |   in that situation.
+  Once  in  the  help,  the  user may  |
+  press  "K"  on  top  of a help link  |
+  which  may open a second help file,  |
+  and so on.                           |
+                                     --´
+
+                                                                             }
+  ▶ REMEMBER POSITIONS                                                       {
+
+  The  last  node  position  must  be  .-  The positions will be stored in the
+  retrievable   when   that  specific  |   file ".proj" that will be saved at:
+  project   is   loaded   again.  For  |
+  example,  if the second buffer in a  |   (1) ~/.config/nvim/nvpm/proj/.proj
+  specific tab was last accessed when  |   (2) .nvpm/proj/.proj
+  nvim  was  shutdown, then proj must  |
+  remember  this and show that second  |   Where  (1)  is  the global location
+  buffer  when  the same project file  |   and (2) is for local projects.
+  is loaded again.                     |
+                                     --´
+                                                                             }
+  ▶ NODE FINDER                                                              {
+
+  The  initial  idea is to be able to  .-  The  choosing  of  that  last match
+  find  files  present in the tree of  |   will  be  done after it is found or
+  nodes  by  hitting  a  command that  |   upon confirmation, and configurable
+  acts  on  type  events. As the user  |   by global variable.
+  types, the possibilities that don't  |
+  match  must  be  filtered out until  |
+  only one match is present.           |
+                                     --´
+
+                                                                             }
+  ▶ TODO DISPLAY                                                             {
+
+  The  user  must  be  able  to  display the current "TODO" task on the tab or
+  status line. The display will consist  on  a  short message that will convey
+  information  about  the  task  being  done,  or the task  yet  to  be  done.
+
+                                                                             }
+
+Other requirements for proj plugin   {
+
+New features for NVPM                                                          {
+---------------------
+
+There  are  lots of new features I could think of. They'll be lengthly discussed
+in the 'reqs.sng' file, here is a initial list of them,
+
+- better cut tree functionality
+- ignore load default on certain occasions
+- usage of NVPM mappings even for sessions
+  where NVPM didn't load any project file
+- load of files on demand
+- mapping files to random code instead
+  of names
+- study the possibility of allowing splits
+  check a work around tabline and statusline
+  inconsistencies
+- root folder for project, workspace and tab
+  nodes
+- remember positions functionality
+- more than one wild terminal
+- NVPMNewProject also create files and
+  directories
+- global directory for global settings, global
+  project files, and global settings for other
+  NVPM plug-ins
+- Vim compatibility
+- Possibility of opening nvim from anywhere and
+  load a project somewhere else.
+- bookmark of projects to load from anywhere
+- handling of new tabs created by ':tabnew'
+- automatically create temporary project file
+  for newly opened files without loading a
+  project file
+- fuzzy finder for files and terminals
+- inline comments for project files
+- priority chooser in project files
+- NVPMEditProjects should mind state of variables
+  such as g:nvmp.line.visible
+- implementation of NVPM main command, that will
+  show and act on all available NVPM commands
+- link functionality for project files with
+  possibility for overwriting some nodes, just
+  like the models of InitMux
+- if splits are implemented, implement layouts
+  feature
+- special key-maps to help edit project files
+
+}
+requirement proj plugin menu         {
+}
+requirement inline comments          {
+}
+requirement node modifiers           {
+}
+requirement root folder for nodes    {
+}
+requirement handling of :tabnew      {
+}
+
+}

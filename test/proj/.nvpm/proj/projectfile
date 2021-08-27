@@ -1,0 +1,4 @@
+
+workspace main
+  tab main
+    buff file:file

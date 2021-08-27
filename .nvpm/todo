@@ -1,0 +1,19 @@
+
+flux {
+
+  * import  the  "main loop with numeric iterator" idea  from the current nvpm
+  plugin. A second  iterator  must  be  created  in order go over the subnodes
+  without losing the main loop count. The info from the sub-node must be taken
+  and inserted into the main tree so the main loop can continue.
+
+  * insert  the random hash inside each node (already in data structure).
+
+  * remove    file  dependency  from  flux.  The  client  plug-ins must now be
+  responsible   for   the   IO   operations.  Flux  will  only  be  a  parser.
+
+}
+proj                                                                       {
+
+  * Better proj loaded test variable (the old g:nvpm.data.loaded variable). A use case study must be made in order to determine the state of the tree variable.
+
+}

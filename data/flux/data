@@ -1,0 +1,48 @@
+# this is a comment
+name C Library Example # this is an inline comment
+root ~/Projects/        
+project clib:clib # {
+  workspace cdev        
+    tab code: src       
+      file bar.c        
+      file bar.h        
+# }
+
+
+---
+proj p1
+  workspace wname1:wroot1
+    tab code: src
+      file bar.c
+      file bar.h
+    tab tranger
+      terminal file: ranger ~
+
+
+project p2:p1root
+proj
+  area ddev
+    slot CODE: SRC
+      buff barc : BAR.c
+      buff barh : BAR.h
+      term file : ranger ~/.config/nvim
+pj nameelib:~/namelib
+
+
+{'file':'data/flux/data',
+ 'name':'C Library Example',
+ 'root':'~/Projects',
+ 'list':[{
+   'name':'clib',
+   'root':'clib',
+   'list':[{
+     'name':'cdev',
+     'root':'',
+     'list': [{
+       'name':'code',
+       'root':'src',
+       'list':[
+       {'file':'','name':'bar.c'},
+       {'file':'','name':'bar.h'}
+]}]}]}]}                                                      ~/.nvpm/proj/c.proj
+

@@ -1,0 +1,7 @@
+
+proj test :~
+  area Downloads : down
+    tab init : telegram
+      term ranger@down:ranger
+      file file : file.txt
+

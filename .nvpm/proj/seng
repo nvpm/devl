@@ -1,0 +1,75 @@
+# proj {
+
+workspace proj
+  tab main
+    buff init : seng/proj/init.sng
+    buff data : seng/proj/data.sng
+    buff synx : seng/proj/synx.sng
+    buff file : seng/proj/file.sng
+   *buff reqs : seng/proj/reqs.sng
+   *buff case : seng/proj/case.sng
+   *buff bugs : seng/proj/bugs.sng
+   *buff save : seng/proj/save.sng
+   *buff idea : seng/proj/idea.sng
+
+# }
+# flux {
+
+workspace flux
+  tab main
+    buff init : seng/flux/init.sng
+    buff synx : seng/flux/synx.sng
+   *buff bugs : seng/flux/bugs.sng
+   *buff case : seng/flux/case.sng
+   *buff data : seng/flux/data.sng
+   *buff file : seng/flux/file.sng
+   *buff idea : seng/flux/idea.sng
+   *buff reqs : seng/flux/reqs.sng
+   *buff save : seng/flux/save.sng
+
+# }
+# iris {
+
+workspace iris
+  tab main
+    buff init : seng/iris/init.sng
+    buff synx : seng/iris/synx.sng
+   *buff bugs : seng/iris/bugs.sng
+   *buff case : seng/iris/case.sng
+   *buff data : seng/iris/data.sng
+   *buff file : seng/iris/file.sng
+   *buff idea : seng/iris/idea.sng
+   *buff reqs : seng/iris/reqs.sng
+   *buff save : seng/iris/save.sng
+
+# }
+# line {
+
+workspace line
+  tab main
+    buff bugs : seng/line/bugs.sng
+    buff case : seng/line/case.sng
+    buff data : seng/line/data.sng
+    buff file : seng/line/file.sng
+    buff idea : seng/line/idea.sng
+    buff init : seng/line/init.sng
+    buff reqs : seng/line/reqs.sng
+    buff save : seng/line/save.sng
+    buff synx : seng/line/synx.sng
+
+# }
+# zoom {
+
+workspace zoom
+  tab main
+    buff bugs : seng/zoom/bugs.sng
+    buff case : seng/zoom/case.sng
+    buff data : seng/zoom/data.sng
+    buff file : seng/zoom/file.sng
+    buff idea : seng/zoom/idea.sng
+    buff init : seng/zoom/init.sng
+    buff reqs : seng/zoom/reqs.sng
+    buff save : seng/zoom/save.sng
+    buff synx : seng/zoom/synx.sng
+
+# }
