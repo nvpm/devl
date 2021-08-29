@@ -125,55 +125,77 @@ fu! s:proj.proj(root) "{
 endf "}
 fu! s:proj.wksp(root) "{
 
-  let node       = {}
-
-  let node.list  = []
-  let self.match = split(self.match[2],'[:=]')
-  let node.name = (len(self.match)>=1)?trim(self.match[0]):''
-  let node.root = (len(self.match)>=2)?trim(self.match[1]):''
+  let node={}
+  let wksp=split(self.match[2],'[:=]',1)
+  let node.name=wksp[0]
+  let node.root = len(wksp)==1?'':wksp[1]
+  let node.root = empty(node.root)?'':node.root.'/'
+  if 1+match(self.match[2],':')
+    let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
+  endif
+  let node.list = []
   let node.last = 0
+
+  let self.w = self.p+1
+  let self.jump=0
+  while self.w < self.linesnr
+    let line = flux#line(self.lines[self.w])
+    "if 1+match(line,s:rgex.proj.wksp)|break|endif
+    "if (1+match(line,'^---'))||(line=='--')
+      "let self.p = self.w
+      "return node
+    "endif
+    "if line=='-'
+      "let self.jump=1
+      "let self.w+=1
+      "continue
+    "endif
+    "let self.match = matchlist(line,s:rgex.proj.tabs)
+    "if !empty(self.match)&&!self.jump
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] == '-' |let self.w+=1|continue|endif
+      "call add(node.list,self.tabs(node.root))
+    "endif
+    let self.jump = 0
+    let self.w+=1
+  endwhile
+  let self.p = self.w-1
+
   return node
 
-  "for self.w in range(self.p+1,len(self.lines)-1)
-    "let line = flux#line(self.lines[self.w])
-    "let self.match = matchlist(line,s:rgex.proj.tabs)
-    "if (match(line,s:rgex.proj.wksp)+1)||
-     "\ (flux#stop(line))||
-     "\ (1+match(line,'^\s*--'))
-      "break
-    "elseif !empty(self.match) && self.match[1] != '-'
-      "call add(node.list,self.tabs())
-    "endif
-  "endfor
-
-  "return node
-
 endf "}
-fu! s:proj.tabs() "{
+fu! s:proj.tabs(root) "{
 
-  let node       = {}
-  let node.list  = []
-  let self.match = split(self.match[2],'[:=]')
-  let node.name = (len(self.match)>=1)?trim(self.match[0]):''
-  let node.root = (len(self.match)>=2)?trim(self.match[1]):''
+  let node={}
+  let tabs=split(self.match[2],'[:=]',1)
+  let node.name=tabs[0]
+  let node.root = len(tabs)==1?'':tabs[1]
+  let node.root = empty(node.root)?'':node.root.'/'
+  if 1+match(self.match[2],':')
+    let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
+  endif
+  let node.list = []
   let node.last = 0
 
-  for self.t in range(self.w+1,len(self.lines)-1)
+  let self.t = self.w+1
+  let self.jump=0
+  while self.t < self.linesnr
     let line = flux#line(self.lines[self.t])
-    let fmatch = matchlist(line,s:rgex.proj.file)
-    let tmatch = matchlist(line,s:rgex.proj.term)
-    if (match(line,s:rgex.proj.tabs)+1)||
-     \ (flux#stop(line))||
-     \ (1+match(line,'^\s*--'))
-      break
-    elseif !empty(fmatch) && fmatch[1] != '-'
-      let self.match = fmatch
-      call add(node.list,self.file())
-    elseif !empty(tmatch) && tmatch[1] != '-'
-      let self.match = tmatch
-      call add(node.list,self.term())
+    if 1+match(line,s:rgex.proj.tabs)|break|endif
+    if (1+match(line,'^---'))||(line=='--')
+      let self.w = self.t
+      return node
     endif
-  endfor
+    if line=='-'
+      let self.jump=1
+      let self.t+=1
+      continue
+    endif
+    " get file or term
+    let self.jump = 0
+    let self.t+=1
+  endwhile
+  let self.w = self.t-1
 
   return node
 

@@ -1,21 +1,17 @@
 name PROJECT
--root ~/Downloads
-pj p1:pr1                  # pr1
-  ws w1:wr1                # pr1/wr1
-    tb t1:t1               # pr1/wr1/t1
-      bf b1:b1.txt         # pr1/wr1/t1/b1.txt
-      bf b2:b2.txt         # pr1/wr1/t1/b2.txt
-    tb t2=t2               # t2
-      tm t1 : tr1 @ ranger # t2/tr1
-      tm t2 = tr2 @ ranger # tr2
-    tb t3=t3               # t3
-    tb t4=t4               # t4
-    tb t5=t5               # t5
---
-ws w2:wr2                # pr1/wr2
-    tb t1:tr1              # pr1/wr2/tr1
-      bf b1=b1.txt         # b1.txt
-  ws w3:wr3                # pr1/wr3
-pj p2:pr2                  # ~/pr2
-pj p3:pr3                  # ~/pr3
-pj p4:pr4                  # ~/pr4
+root ~/Downloads
+pj p1:pr1          # pr1
+  ws w1:wr1        # pr1/wr1
+    tb t1:tr1      # pr1/wr1/tr1
+      bf b1:b1.txt # pr1/wr1/tr1/b1.txt
+      bf b2:b2.txt # pr1/wr1/tr1/b2.txt
+    tb t2=tr2      # tr2
+      tm t1=tr1    # tr2/tr1
+      tm t2=tr2    # tr2
+  ws w2:wr2        # pr1/wr2
+    tb t1:tr1      # pr1/wr2/tr1
+      bf b1=b1.txt # b1.txt
+  ws w3:wr3        # pr1/wr3
+pj p2:pr2          # ~/pr2
+pj p3:pr3          # ~/pr3
+pj p4:pr4          # ~/pr4
