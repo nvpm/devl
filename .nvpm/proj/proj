@@ -1,4 +1,4 @@
----name PROJECT
+name PROJECT
 root ~/Downloads
 pj p1:pr1                  # pr1
   ws w1:wr1                # pr1/wr1

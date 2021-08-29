@@ -46,7 +46,7 @@ fu! s:proj.load() "{
       let self.i+=1
       let line = flux#line(self.lines[self.i])
 
-      if (line=='---')||(line=='--'&&self.node=='root')
+      if (1+match(line,'^---'))||(line=='--'&&self.node=='root')
         break
       endif
       if line=='-'
