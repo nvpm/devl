@@ -16,3 +16,6 @@ pj p1:pr1                  # pr1
       bf b1=b1.txt         # b1.txt
   ws w3:wr3                # pr1/wr3
 pj p2:pr2                  # ~/pr2
+pj p2:pr2                  # ~/pr2
+pj p3:pr3                  # ~/pr3
+pj p4:pr4                  # ~/pr4
