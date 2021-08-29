@@ -1,3 +1,7 @@
+pj p2:pr2                  # ~/pr2
+pj p3:pr3                  # ~/pr3
+pj p4:pr4                  # ~/pr4
+
 pf {
 
 ---
