@@ -97,6 +97,7 @@ endf " }
 fu! s:proj.load() " {
 
   ProjLoad proj
+  call proj#show('proj')
 
 endf " }
 

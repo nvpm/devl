@@ -1,3 +1,23 @@
+# flux {
+
+workspace flux
+  tab flux
+    buff auto: plug/flux/autoload/flux.vim
+    buff pf: .nvpm/proj/proj
+   *buff data: data/flux/data
+   *buff seng: seng/proj/data.sng
+   *buff plug: plug/flux/plugin/flux.vim
+  tab test
+    buff init: test/init.vim
+    buff pf: .nvpm/proj/proj
+   *buff nvpm: /i/proj/save/nvpm/plugin/nvpm.vim
+   *buff patt: /i/apps/share/nvim/runtime/doc/pattern.txt
+ *tab meta
+    buff vers: plug/flux/version
+   *buff docx: plug/flux/doc/flux.txt
+   *buff read: plug/flux/README.md
+
+# }
 # TESTS{
 
 *workspace TESTS
@@ -37,24 +57,6 @@ workspace proj
     buff vers: plug/proj/version
     buff docx: plug/proj/doc/proj.txt
     buff read: plug/proj/README.md
-
-# }
-# flux {
-
-workspace flux
-  tab flux
-    buff auto: plug/flux/autoload/flux.vim
-    buff data: data/flux/data
-   *buff seng: seng/proj/data.sng
-   *buff plug: plug/flux/plugin/flux.vim
-  tab test
-    buff init: test/init.vim
-    buff nvpm: /i/proj/save/nvpm/plugin/nvpm.vim
-   *buff patt: /i/apps/share/nvim/runtime/doc/pattern.txt
- *tab meta
-    buff vers: plug/flux/version
-   *buff docx: plug/flux/doc/flux.txt
-   *buff read: plug/flux/README.md
 
 # }
 # zoom {

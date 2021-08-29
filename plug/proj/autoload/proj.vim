@@ -3,10 +3,10 @@ let s:proj.tree = {}
 
 fu! s:proj.item(type) "{
 
-  let p = s:proj.p
-  let w = s:proj.w
-  let t = s:proj.t
-  let b = s:proj.b
+  let p = self.p
+  let w = self.w
+  let t = self.t
+  let b = self.b
 
   let item = (a:type=='p')?self.tree.list[p]:{}
   let item = (a:type=='w')?self.tree.list[p].list[w]:{}
@@ -18,10 +18,10 @@ fu! s:proj.item(type) "{
 endf "}
 fu! s:proj.list(type) "{
 
-  let p = s:proj.p
-  let w = s:proj.w
-  let t = s:proj.t
-  let b = s:proj.b
+  let p = self.p
+  let w = self.w
+  let t = self.t
+  let b = self.b
 
   let list = (a:type=='p')?self.tree.list:{}
   let list = (a:type=='w')?self.tree.list[p].list:{}
@@ -35,7 +35,6 @@ fu! s:proj.load(    ) "{
 
   let self.tree = flux#flux(self.file)
   call proj#proc()
-  echo self.item('b')
   let self.loaded = 1
 
 endf "}
@@ -70,57 +69,49 @@ fu!   proj#proj(    ) "{
 endf "}
 fu!   proj#proc(    ) "{
 
-  for p in range(len(s:proj.tree.list))
-    let proj = s:proj.tree.list[p]
-    for w in range(len(proj.list))
-      let wksp = proj.list[w]
-      for t in range(len(wksp.list))
-        let slot = wksp.list[w]
-        for b in range(len(slot.list))
-          let buff = slot.list[b]
-          if buff.type == 't'
-            let buff.root = ''
-            let atindex = match(buff.name,'@')
-            if 1+atindex
-              let buff.root = trim(buff.name[atindex:],"@ ")
-              let buff.name = trim(buff.name[:atindex],"@ ")
-            endif
-          else
-          endif
-        endfor
-      endfor
-    endfor
-  endfor
-
-
-
-  ""let root = s:proj.tree.root
-  "for proj in s:proj.tree.list
-    "for wksp in proj.list
-      "for slot in wksp.list
-        "for i in range(len(slot.list))
-          "if slot.list[i].type == 't'
-            "let split = split(slot.list[i],'@')
-            "let slot.list[i].root = (len(split)>=1)?split[0]:''
-            "let slot.list[i].comm = (len(split)>=2)?split[1]:''
-            ""let root = s:proj.tree.root
-            ""let root = empty(proj.root)?root:root.'/'.proj.root
-            ""let root = empty(wksp.root)?root:root.'/'.wksp.root
-            ""let root = empty(slot.root)?root:root.'/'.slot.root
-            ""let root = empty(buff.root)?root:root.'/'.buff.root
-            ""echo root
-          "else
-            ""let file = proj.root.'/'.wksp.root.'/'.slot.root.'/'.buff.file
-          "endif
-        "endfor
-      "endfor
-    "endfor
-  "endfor
-
 endf "}
 fu!   proj#load(file) "{
   let s:proj.file = '.nvpm/proj/'.a:file
   call s:proj.load()
+endf "}
+fu!   proj#show(synx) "{
+
+  let tree = s:proj.tree
+
+  let name = get(tree,'name','')
+  let root = get(tree,'root','')
+  echo '"name":"'.name.'"'
+  echo '"root":"'.root.'"'
+
+  if !empty(tree)
+    if exists('tree.list')
+      for proj in tree.list
+        let name = get(proj,'name','')
+        let root = get(proj,'root','')
+        echo '"'.name.'":"'.root.'"'
+        if exists('proj.list')
+          for wksp in proj.list
+            let name = get(wksp,'name','')
+            let root = get(wksp,'root','')
+            echo '  "'.name.'":"'.root.'"'
+            if exists('wksp.list')
+              for slot in wksp.list
+                let name = get(slot,'name','')
+                let root = get(slot,'root','')
+                echo '    "'.name.'":"'.root.'"'
+                if exists('slot.list')
+                  for buff in slot.list
+                    echo '      '.string(buff)
+                  endfor
+                endif
+              endfor
+            endif
+          endfor
+        endif
+      endfor
+    endif
+  endif
+
 endf "}
 
 

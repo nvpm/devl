@@ -1,3 +1,16 @@
+pf {
+
+---
+proj test :~
+  workspace Downloads : down
+    tab init : telegram
+      file file = file.txt
+      term RANGER=down:ranger
+    tab iiiINIT : TELEGRAM
+      file FILE = FILE.TXT
+    tab one : TELEGRAM
+      file FILE = FILE.TXT
+}
 
 current proj {
 
