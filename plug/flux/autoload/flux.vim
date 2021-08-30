@@ -38,44 +38,44 @@ fu! s:proj.load() "{
     let tree.last = 0
     let self.jump = 0
 
-    let self.i = 0
+    let self.r = 0
     let self.linesnr = len(self.lines)
 
-    while self.i < self.linesnr
-      let line = flux#line(self.lines[self.i])
+    while self.r < self.linesnr
+      let line = flux#line(self.lines[self.r])
 
       if (1+match(line,'^---'))||(line=='--')
         break
       endif
       if line=='-'
         let self.jump = 1
-        let self.i+=1
+        let self.r+=1
         continue
       endif
 
       let self.match=matchlist(line,s:rgex.proj.name)
       if !empty(self.match)&&!self.jump
         if self.match[1] == '--'|break|endif
-        if self.match[1] == '-' |let self.i+=1|continue|endif
+        if self.match[1] == '-' |let self.r+=1|continue|endif
         let tree.name = self.match[3]
       endif
 
       let self.match=matchlist(line,s:rgex.proj.root)
       if !empty(self.match)&&!self.jump
         if self.match[1] == '--'|break|endif
-        if self.match[1] == '-' |let self.i+=1|continue|endif
+        if self.match[1] == '-' |let self.r+=1|continue|endif
         let tree.root = self.match[3]
       endif
 
       let self.match=matchlist(line,s:rgex.proj.proj)
       if !empty(self.match)&&!self.jump
         if self.match[1] == '--'|break|endif
-        if self.match[1] == '-' |let self.i+=1|continue|endif
+        if self.match[1] == '-' |let self.r+=1|continue|endif
         call add(tree.list,self.proj(tree.root))
       endif
 
       let self.jump = 0
-      let self.i+=1
+      let self.r+=1
     endwhile
 
   endif
@@ -97,14 +97,14 @@ fu! s:proj.proj(root) "{
 
   let jump=0
   let break=0
-  let self.p = self.i+1
+  let self.p = self.r+1
   while self.p < self.linesnr
     let line = flux#line(self.lines[self.p])
     if 1+match(line,s:rgex.proj.proj)|break|endif
     if break|let self.p+=1|continue|endif
     let self.match = matchlist(line,s:rgex.proj.wksp)
     if (1+match(line,'^---'))||(line=='--')
-      let self.i = self.p
+      let self.r = self.p
       return node
     endif
     if line=='-'
@@ -121,7 +121,7 @@ fu! s:proj.proj(root) "{
     endif
     let self.p+=1
   endwhile
-  let self.i = self.p-1
+  let self.r = self.p-1
 
   return node
 
