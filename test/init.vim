@@ -97,14 +97,13 @@ endf " }
 fu! s:proj.load() " {
 
   ProjLoad proj
-  call proj#show('proj')
 
 endf " }
 
 " }
 
-"call s:file.init()
-"call s:flux.init()
+call s:file.init()
+call s:flux.init()
 call s:proj.init()
 
 " }
