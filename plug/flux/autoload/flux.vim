@@ -256,6 +256,8 @@ endf "}
 fu! s:proj.node(line,node) "{
   return 1+match(a:line,s:rgex.proj[a:node])
 endf "}
+fu! s:proj.eval() "{
+endf "}
 
 " }
 " flux {
