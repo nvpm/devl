@@ -248,7 +248,7 @@ fu! s:proj.term(root) "{
 
   let node.name = name
   let node.comm = comm
-  let node.root = resolve(root)
+  let node.root = empty(root)?'.':resolve(root)
 
   return node
 

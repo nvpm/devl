@@ -5,9 +5,9 @@ pj p1:pr1                    # pr1
     tb t1:tr1                # pr1/wr1/tr1
       bf b1:b1.txt           # pr1/wr1/tr1/b1.txt
       bf b2=b2.txt           # pr1/wr1/tr1/b2.txt
-    tb t2=tr2                # tr2
+    tb t2=/usr/share/nvim/runtime/doc                # tr2
       tm tm1:dir1@ranger       # tr2/tr1
-      tm dir:dir
+      tm term:.@ranger
   ws w2=wr2                  # pr1/wr2
     tb t1:tr1                # pr1/wr2/tr1
       bf b1=b1.txt           # b1.txt
