@@ -26,6 +26,19 @@ let s:rgex.imux = {}
 
 let s:proj = {}
 
+fu! s:proj.meta(root) "{
+  let node={}
+  let split=split(self.match[2],'[:=]',1)
+  let node.name=split[0]
+  let node.root = len(split)==1?'':split[1]
+  let node.root = empty(node.root)?'':node.root.'/'
+  if 1+match(self.match[2],':')
+    let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
+  endif
+  let node.list = []
+  let node.last = 0
+  return node
+endf "}
 fu! s:proj.load() "{
 
   let tree = {}
@@ -86,16 +99,7 @@ fu! s:proj.load() "{
 endf "}
 fu! s:proj.proj(root) "{
 
-  let node={}
-  let split=split(self.match[2],'[:=]',1)
-  let node.name=split[0]
-  let node.root = len(split)==1?'':split[1]
-  let node.root = empty(node.root)?'':node.root.'/'
-  if 1+match(self.match[2],':')
-    let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
-  endif
-  let node.list = []
-  let node.last = 0
+  let node = self.meta(a:root)
 
   let self.p = self.r+1
   while self.p < self.linesnr && !self.stop
@@ -128,19 +132,6 @@ fu! s:proj.proj(root) "{
   let self.r = self.p-1
 
   return node
-    "if break|let self.p+=1|continue|endif
-    "if (line=='--')
-      "let self.r = self.p
-      "return node
-    "endif
-    "if line=='-'
-      "let jump=1
-      "let self.p+=1
-      "continue
-    "endif
-      "if jump|let jump = 0|let self.p+=1|continue|endif
-      "if self.match[1] == '--'|let break=1|continue|endif
-      "if self.match[1] == '-' |let self.p+=1|continue|endif
 
 endf "}
 fu! s:proj.wksp(root) "{
