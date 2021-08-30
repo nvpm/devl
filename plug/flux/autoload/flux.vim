@@ -35,6 +35,7 @@ fu! s:proj.meta(root) "{
   if 1+match(self.match[2],':')
     let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
   endif
+  let node.root = resolve(node.root)
   let node.list = []
   let node.last = 0
   return node
@@ -131,7 +132,7 @@ fu! s:proj.proj(root) "{
     endif
     let self.p+=1
   endwhile
-  let self.r = self.p-1
+  "let self.r = self.p-1
 
   return node
 
@@ -221,22 +222,33 @@ fu! s:proj.tabs(root) "{
 endf "}
 fu! s:proj.file(root) "{
 
-  let node       = {}
-  let node.type = 'f'
-  let self.match = split(self.match[2],'[:=]')
-  let node.name  = (len(self.match)>=1)?trim(self.match[0]):''
-  let node.file  = (len(self.match)>=2)?trim(self.match[1]):''
-
+  let node = self.meta(a:root)
+  let node.file = node.root
+  unlet node.root
+  unlet node.last
+  unlet node.list
   return node
 
 endf "}
 fu! s:proj.term(root) "{
 
-  let node = {}
-  let node.type = 't'
-  let self.match = split(self.match[2],'[:=]')
-  let node.name = (len(self.match)>=1)?trim(self.match[0]):''
-  let node.comm = (len(self.match)>=2)?trim(self.match[1]):''
+  let node={}
+  let split=split(self.match[2],'@',1)
+  let name = trim(get(split,0,''))
+  let comm = trim(get(split,1,''))
+
+  let split=split(name,'[:=]',1)
+
+  let name = trim(get(split,0,''))
+  let root = trim(get(split,1,''))
+
+  if !empty(root)&&!(1+match(self.match[2],'='))
+    let root = a:root.'/'.root
+  endif
+
+  let node.name = name
+  let node.comm = comm
+  let node.root = resolve(root)
 
   return node
 
