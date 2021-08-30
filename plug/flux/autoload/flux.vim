@@ -37,6 +37,7 @@ fu! s:proj.load() "{
     let tree.list = []
     let tree.last = 0
     let self.jump = 0
+    let self.stop = 0
 
     let self.r = 0
     let self.linesnr = len(self.lines)
@@ -74,6 +75,7 @@ fu! s:proj.load() "{
         call add(tree.list,self.proj(tree.root))
       endif
 
+      if self.stop|break|endif
       let self.jump = 0
       let self.r+=1
     endwhile
@@ -95,15 +97,38 @@ fu! s:proj.proj(root) "{
   let node.list = []
   let node.last = 0
 
-  let jump=0
-  let break=0
   let self.p = self.r+1
-  while self.p < self.linesnr
+  while self.p < self.linesnr && !self.stop
     let line = flux#line(self.lines[self.p])
-    if 1+match(line,s:rgex.proj.proj)|break|endif
-    "if break|let self.p+=1|continue|endif
+    if (1+match(line,'^---'))|let self.stop=1|break|endif
+    if self.node(line,'proj')|break|endif
+    if line=='-'
+      while 1 
+        let self.p+=1
+        let line = flux#line(self.lines[self.p])
+        if self.node(line,'wksp')|let self.p+=1|break|endif
+      endwhile
+      continue
+    endif
+    if 1+match(line,'^--')
+      while 1 
+        let self.p+=1
+        let line = flux#line(self.lines[self.p])
+        if self.node(line,'proj')|break|endif
+      endwhile
+      break
+    endif
     let self.match = matchlist(line,s:rgex.proj.wksp)
-    if (1+match(line,'^---'))|break|endif
+    if !empty(self.match)
+      if self.match[1]=='-'|let self.p+=1|continue|endif
+      call add(node.list,self.wksp(node.root))
+    endif
+    let self.p+=1
+  endwhile
+  let self.r = self.p-1
+
+  return node
+    "if break|let self.p+=1|continue|endif
     "if (line=='--')
       "let self.r = self.p
       "return node
@@ -113,17 +138,9 @@ fu! s:proj.proj(root) "{
       "let self.p+=1
       "continue
     "endif
-    if !empty(self.match)
       "if jump|let jump = 0|let self.p+=1|continue|endif
       "if self.match[1] == '--'|let break=1|continue|endif
       "if self.match[1] == '-' |let self.p+=1|continue|endif
-      call add(node.list,self.wksp(node.root))
-    endif
-    let self.p+=1
-  endwhile
-  let self.r = self.p-1
-
-  return node
 
 endf "}
 fu! s:proj.wksp(root) "{
@@ -226,6 +243,9 @@ fu! s:proj.term() "{
   return node
 
 endf "}
+fu! s:proj.node(line,node) "{
+  return 1+match(a:line,s:rgex.proj[a:node])
+endf "}
 
 " }
 " flux {
@@ -245,6 +265,12 @@ fu! flux#flux(...) "{
   endif
   return tree
 
+endf "}
+fu! flux#line(line) "{
+  let line = a:line
+  let comment = match(line,'#')
+  if 1+comment|let line = line[0:comment-1]|endif
+  return trim(line)
 endf "}
 fu! flux#line(line) "{
   let line = a:line
