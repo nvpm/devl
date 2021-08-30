@@ -131,7 +131,7 @@ fu! s:proj.proj(root) "{
     endif
     let self.p+=1
   endwhile
-  "let self.r = self.p-1
+  let self.r = self.p-1
 
   return node
 
