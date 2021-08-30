@@ -29,8 +29,8 @@ let s:proj = {}
 fu! s:proj.meta(root) "{
   let node={}
   let split=split(self.match[2],'[:=]',1)
-  let node.name=split[0]
-  let node.root = len(split)==1?'':split[1]
+  let node.name=trim(split[0])
+  let node.root = len(split)==1?'':trim(split[1])
   let node.root = empty(node.root)?'':node.root.'/'
   if 1+match(self.match[2],':')
     let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
@@ -95,6 +95,7 @@ fu! s:proj.load() "{
     endwhile
 
   endif
+  let self.tree = tree
   return tree
 
 endf "}
@@ -289,6 +290,45 @@ fu! flux#line(line) "{
   let comment = match(line,'#')
   if 1+comment|let line = line[0:comment-1]|endif
   return trim(line)
+endf "}
+fu! flux#show() "{
+
+  let tree = s:proj.tree
+
+  let name = get(tree,'name','')
+  let root = resolve(get(tree,'root',''))
+  echo '"name":"'.name.'"'
+  echo '"root":"'.root.'"'
+
+  if !empty(tree)
+    if exists('tree.list')
+      for proj in tree.list
+        let name = get(proj,'name','')
+        let root = resolve(get(proj,'root',''))
+        echo '"'.name.'":"'.root.'"'
+        if exists('proj.list')
+          for wksp in proj.list
+            let name = get(wksp,'name','')
+            let root = resolve(get(wksp,'root',''))
+            echo '  "'.name.'":"'.root.'"'
+            if exists('wksp.list')
+              for slot in wksp.list
+                let name = get(slot,'name','')
+                let root = resolve(get(slot,'root',''))
+                echo '    "'.name.'":"'.root.'"'
+                if exists('slot.list')
+                  for buff in slot.list
+                    echo '      '.string(buff)
+                  endfor
+                endif
+              endfor
+            endif
+          endfor
+        endif
+      endfor
+    endif
+  endif
+
 endf "}
 
 " }

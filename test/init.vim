@@ -51,14 +51,7 @@ fu! s:flux.init()  " {
 endf " }
 fu! s:flux.test(n) " {
 
-  let test = test#test()
-  let test.orig = 'test/flux/'.a:n.'-expt'
-
-  if !test.eval()
-    echohl NVPMTestFailed
-    echo 'nvpm.flux file test/flux/'.a:n.'-expt is unreadable'
-    echohl None
-  endif
+  let expt = {'root': './', 'list': [{'root': './pr1', 'list': [{'root': './pr1/wr1', 'list':[{'root': './pr1/wr1/tr1', 'list': [{'file': '', 'name': 'b1'}, {'root': '.', 'name': 't1', 'comm': 'ranger'}], 'name': 't1', 'last': 0}], 'name': 'w1', 'last': 0}], 'name': 'p1', 'last': 0}], 'name': '1-inpt', 'last': 0}
 
   let orig = 'test/flux/'.a:n.'-inpt'
   let tree = flux#flux(orig)
@@ -70,7 +63,7 @@ fu! s:flux.test(n) " {
     return
   endif
 
-  if !test#diff(tree,test.tree)
+  if tree == expt
     echohl NVPMTestPassed|echo 'nvpm.flux.tes'.a:n.' passed'|echohl None
   else
     echohl NVPMTestFailed|echo 'nvpm.flux.tes'.a:n.' failed'|echohl None

@@ -20,12 +20,12 @@ workspace flux
 # }
 # TESTS{
 
-*workspace TESTS
+workspace TESTS
   tab init
     buff init: test/init.vim
   tab proj
     buff pf: .nvpm/proj/proj
-  *tab 1-flux
+  tab 1-flux
     buff expt: test/flux/1-expt
     buff inpt: test/flux/1-inpt
   *tab 2-flux
