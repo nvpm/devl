@@ -85,9 +85,9 @@ endf "}
 fu! s:proj.proj(root) "{
 
   let node={}
-  let proj=split(self.match[2],'[:=]',1)
-  let node.name=proj[0]
-  let node.root = len(proj)==1?'':proj[1]
+  let split=split(self.match[2],'[:=]',1)
+  let node.name=split[0]
+  let node.root = len(split)==1?'':split[1]
   let node.root = empty(node.root)?'':node.root.'/'
   if 1+match(self.match[2],':')
     let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
@@ -95,27 +95,30 @@ fu! s:proj.proj(root) "{
   let node.list = []
   let node.last = 0
 
+  let jump=0
+  let break=0
   let self.p = self.i+1
-  let self.jump=0
   while self.p < self.linesnr
     let line = flux#line(self.lines[self.p])
     if 1+match(line,s:rgex.proj.proj)|break|endif
+    if break|let self.p+=1|continue|endif
+    let self.match = matchlist(line,s:rgex.proj.wksp)
     if (1+match(line,'^---'))||(line=='--')
       let self.i = self.p
       return node
     endif
     if line=='-'
-      let self.jump=1
+      let jump=1
       let self.p+=1
       continue
     endif
-    let self.match = matchlist(line,s:rgex.proj.wksp)
-    if !empty(self.match)&&!self.jump
-      if self.match[1] == '--'|break|endif
+    if !empty(self.match)&&!jump
+      if self.match[1] == '--'|let break=1|continue|endif
       if self.match[1] == '-' |let self.p+=1|continue|endif
       call add(node.list,self.wksp(node.root))
+    else
+      let jump=0
     endif
-    let self.jump = 0
     let self.p+=1
   endwhile
   let self.i = self.p-1
@@ -136,6 +139,7 @@ fu! s:proj.wksp(root) "{
   let node.list = []
   let node.last = 0
 
+  return node
   let self.w = self.p+1
   let self.jump=0
   while self.w < self.linesnr

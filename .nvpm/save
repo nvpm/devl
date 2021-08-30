@@ -1,3 +1,27 @@
+  "while self.p < self.linesnr && empty(matchstr(line,s:rgex.proj.proj))
+    "let line = flux#line(self.lines[self.p])
+    "echo line
+    ""if (1+match(line,'^---'))||(line=='--')
+      ""let self.i = self.p
+      ""return node
+    ""endif
+    ""if line=='-'
+      ""let self.jump=1
+      ""let self.p+=1
+      ""continue
+    ""endif
+    ""let self.match = matchlist(line,s:rgex.proj.wksp)
+    ""if !empty(self.match)&&!self.jump
+      ""if self.match[1] == '--'|break|endif
+      ""if self.match[1] == '-' |let self.p+=1|continue|endif
+      """call add(node.list,self.wksp(node.root))
+    ""endif
+    ""let self.jump = 0
+    "let self.p+=1
+    "let line = flux#line(self.lines[self.p])
+  "endwhile
+  "let self.i = self.p-1
+
 
 pf {
 
