@@ -246,9 +246,6 @@ fu! flux#flux(...) "{
   return tree
 
 endf "}
-fu! flux#stop(line) "{
-  return !empty(matchstr(a:line,'^\s*---'))
-endf "}
 fu! flux#line(line) "{
   let line = a:line
   let comment = match(line,'#')
