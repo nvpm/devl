@@ -4,7 +4,7 @@
 if !NVPMTEST&&exists('FLUXAUTOLOAD')|finish|else|let FLUXAUTOLOAD=1|endif
 
 " end-once}
-" priv { 
+" priv {
 
 let s:rgex = {}
 
@@ -101,23 +101,23 @@ fu! s:proj.proj(root) "{
   while self.p < self.linesnr
     let line = flux#line(self.lines[self.p])
     if 1+match(line,s:rgex.proj.proj)|break|endif
-    if break|let self.p+=1|continue|endif
+    "if break|let self.p+=1|continue|endif
     let self.match = matchlist(line,s:rgex.proj.wksp)
-    if (1+match(line,'^---'))||(line=='--')
-      let self.r = self.p
-      return node
-    endif
-    if line=='-'
-      let jump=1
-      let self.p+=1
-      continue
-    endif
-    if !empty(self.match)&&!jump
-      if self.match[1] == '--'|let break=1|continue|endif
-      if self.match[1] == '-' |let self.p+=1|continue|endif
+    if (1+match(line,'^---'))|break|endif
+    "if (line=='--')
+      "let self.r = self.p
+      "return node
+    "endif
+    "if line=='-'
+      "let jump=1
+      "let self.p+=1
+      "continue
+    "endif
+    if !empty(self.match)
+      "if jump|let jump = 0|let self.p+=1|continue|endif
+      "if self.match[1] == '--'|let break=1|continue|endif
+      "if self.match[1] == '-' |let self.p+=1|continue|endif
       call add(node.list,self.wksp(node.root))
-    else
-      let jump=0
     endif
     let self.p+=1
   endwhile

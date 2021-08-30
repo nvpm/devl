@@ -8,7 +8,7 @@ pj p1:pr1          # pr1
     tb t2=tr2      # tr2
       tm t1=tr1    # tr2/tr1
       tm t2=tr2    # tr2
-  ws w2=wr2        # pr1/wr2
+--ws w2=wr2        # pr1/wr2
     tb t1:tr1      # pr1/wr2/tr1
       bf b1=b1.txt # b1.txt
   ws w3:wr3        # pr1/wr3
