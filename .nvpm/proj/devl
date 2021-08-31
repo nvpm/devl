@@ -62,6 +62,7 @@ workspace zoom
     buff docx: plug/zoom/doc/zoom.txt
     buff read: plug/zoom/README.md
     buff vers: plug/zoom/version
+    buff make: makefile
 
 # }
 # rgex {
@@ -114,7 +115,7 @@ workspace zoom
 # }
 # meta {
 
-*workspace meta
+workspace meta
   tab conf
     buff devl: conf/devl.vim
     buff user: conf/user.vim

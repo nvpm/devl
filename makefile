@@ -5,7 +5,6 @@ repos    = $(shell ls plug)
 
 repo = $(word 1,$(strip $(word 1,$(file < repo))))
 
-
 main: null;@$(call makerepo,$(repo))
 
 mall: ;@$(call mall)

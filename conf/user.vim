@@ -58,9 +58,9 @@
 " }
 " zoom {
 
-  let zoom_height = 30
+  let zoom_height = 23
   let zoom_width  = 80
-  let zoom_layout = 'left'
+  "let zoom_layout = 'left'
   let zoom_left   = 0
   let zoom_right  = 0
 
