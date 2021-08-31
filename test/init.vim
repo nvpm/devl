@@ -1,80 +1,34 @@
 so plug/test/autoload/test.vim
 
-" file {
-
-let s:file = {}
-
-fu! s:file.init() " {
-
-  so plug/file/autoload/file.vim
-
-  call self.read()
-
-endf " }
-fu! s:file.read() " {
-
-  let list = []
-  let list+= ['hello']
-  let list+= ['world']
-  let orig = 'test/file/read'
-  let file = file#read(orig)
-  if !empty(file)
-    if !test#diff(list,file)
-      echohl NVPMTestPassed|echo 'nvpm.file.read passed'|echohl None
-    else
-      echohl NVPMTestFailed|echo 'nvpm.file.read failed'|echohl None
-    endif
-  else
-    echohl NVPMTestWarning
-    echo "nvpm.file.read could't read ".orig
-    echohl None
-  endif
-
-endf "}
-
-" }
 " flux {
 
 let s:flux = {}
-
 fu! s:flux.init()  " {
 
   so plug/file/autoload/file.vim
   so plug/flux/autoload/flux.vim
 
+  call self.proj.init()
+  call self.temp.init()
+
+endf " }
+
+let s:flux.proj = {}
+fu! s:flux.proj.init() " {
+
   for n in range(1,1)
-    call self.test(n,'','')
+    call self.test(n)
   endfor
 
 endf " }
-fu! s:flux.test(n,inpt,expt) " {
-
-  let expt = {
-  \ 'root': './',
-  \ 'name': '1-inpt',
-  \ 'last': 0,
-  \ 'list': [{
-  \   'root': './pr1',
-  \   'name': 'p1',
-  \   'last': 0,
-  \   'list': [{
-  \     'root': './pr1/wr1',
-  \     'name': 'w1',
-  \     'last': 0,
-  \     'list':[{
-  \       'root': './pr1/wr1/tr1',
-  \       'name': 't1',
-  \       'last': 0,
-  \       'list': [
-  \         {'file': '' , 'name': 'b1'}, 
-  \         {'root': '.', 'name': 't1', 'comm': 'ranger'}],
-  \     }],
-  \   }],
-  \ }],
-  \ }
+fu! s:flux.proj.test(n) " {
 
   let orig = 'test/flux/'.a:n.'-inpt'
-  let tree = flux#flux(orig)
+  let expt = 'test/flux/'.a:n.'-expt'
+  let tree = flux#flux(orig,'proj')
+  let test = test#test()
+  let test.orig = expt
+  call test.eval()
 
   if empty(tree)
     echohl NVPMTestFailed
@@ -83,7 +37,39 @@ fu! s:flux.test(n,inpt,expt) " {
     return
   endif
 
-  if tree == expt
+  if !test#diff(tree,test.tree)
+    echohl NVPMTestPassed|echo 'nvpm.flux.tes'.a:n.' passed'|echohl None
+  else
+    echohl NVPMTestFailed|echo 'nvpm.flux.tes'.a:n.' failed'|echohl None
+  endif
+
+endf " }
+
+let s:flux.temp = {}
+fu! s:flux.temp.init() " {
+
+  for n in range(1,1)
+    call self.test(n)
+  endfor
+
+endf " }
+fu! s:flux.temp.test(n) " {
+
+  let orig = 'test/flux/'.a:n.'-inpt'
+  let expt = 'test/flux/'.a:n.'-expt'
+  let tree = flux#flux(orig,'temp')
+  let test = test#test()
+  let test.orig = expt
+  call test.eval()
+
+  if empty(tree)
+    echohl NVPMTestFailed
+    echo 'nvpm.flux file test/flux/'.a:n.'-inpt is unreadable'
+    echohl None
+    return
+  endif
+
+  if !test#diff(tree,test.tree)
     echohl NVPMTestPassed|echo 'nvpm.flux.tes'.a:n.' passed'|echohl None
   else
     echohl NVPMTestFailed|echo 'nvpm.flux.tes'.a:n.' failed'|echohl None
@@ -109,14 +95,14 @@ fu! s:proj.init() " {
 endf " }
 fu! s:proj.load() " {
 
-  ProjLoad proj
+  let tree = flux#flux('.nvpm/proj/proj','temp')
+  call flux#show('temp')
 
 endf " }
 
 " }
 
-call s:file.init()
-call s:flux.init()
+"call s:flux.init()
 call s:proj.init()
 
 fu! NVPMTestTimer(timer)

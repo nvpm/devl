@@ -1,3 +1,24 @@
+# TESTS{
+
+workspace TESTS
+  tab init
+    buff init: test/init.vim
+  tab flux
+    buff 1-inpt: test/flux/1-inpt
+    buff 1-expt: test/flux/1-expt
+   *buff 2-inpt: test/flux/2-inpt
+   *buff 2-expt: test/flux/2-expt
+   *buff 3-inpt: test/flux/3-inpt
+   *buff 3-expt: test/flux/3-expt
+   *buff 4-inpt: test/flux/4-inpt
+   *buff 4-expt: test/flux/4-expt
+ *tab proj
+    buff pf: .nvpm/proj/proj
+ *tab file
+    buff read: test/file/read
+    buff orig: test/file/orig
+    buff dest: test/file/dest
+# }
 # flux {
 
 workspace flux
@@ -17,23 +38,6 @@ workspace flux
    *buff docx: plug/flux/doc/flux.txt
    *buff read: plug/flux/README.md
 
-# }
-# TESTS{
-
-workspace TESTS
-  tab init
-    buff init: test/init.vim
-  tab flux
-    buff 1-inpt: test/flux/1-inpt
-    buff 2-inpt: test/flux/2-inpt
-    buff 3-inpt: test/flux/3-inpt
-    buff 4-inpt: test/flux/4-inpt
- *tab proj
-    buff pf: .nvpm/proj/proj
- *tab file
-    buff read: test/file/read
-    buff orig: test/file/orig
-    buff dest: test/file/dest
 # }
 # proj {
 
@@ -65,21 +69,9 @@ workspace TESTS
     buff make: makefile
 
 # }
-# rgex {
-
-*workspace rgex
-  tab rgex
-    buff auto: plug/rgex/autoload/rgex.vim
-   *buff plug: plug/rgex/plugin/rgex.vim
-  tab meta
-    buff vers: plug/rgex/version
-   *buff docx: plug/rgex/doc/rgex.txt
-    buff read: plug/rgex/README.md
-
-# }
 # test {
 
-*workspace test
+workspace test
   tab test
     buff auto: plug/test/autoload/test.vim
    *buff plug: plug/test/plugin/test.vim
@@ -103,7 +95,7 @@ workspace TESTS
 # }
 # file {
 
-*workspace file
+workspace file
   tab file
     buff auto: plug/file/autoload/file.vim
    *buff plug: plug/file/plugin/file.vim

@@ -260,6 +260,16 @@ endf "}
 fu! s:proj.eval() "{
 endf "}
 
+let s:temp = {}
+fu! s:temp.load() "{
+
+  let tree = {}
+
+  let self.tree = tree
+  return tree
+
+endf "}
+
 " }
 " flux {
 
@@ -267,13 +277,17 @@ fu! flux#flux(...) "{
 
   let tree = {}
   if !empty(a:000)
-    if len(a:000) == 1
+    if len(a:000)==1||a:000[1]=='proj'
       let s:proj.orig = a:000[0]
       let s:proj.lines = file#read(s:proj.orig)
       if !empty(s:proj.lines)|let tree=s:proj.load()|endif
-    elseif a:000[1] == 'iris'
-    elseif a:000[1] == 'line'
-    elseif a:000[1] == 'imux'
+    elseif a:000[1]=='iris'
+    elseif a:000[1]=='line'
+    elseif a:000[1]=='imux'
+    elseif a:000[1]=='temp'
+      let s:temp.orig = a:000[0]
+      let s:temp.lines = file#read(s:temp.orig)
+      if !empty(s:temp.lines)|let tree=s:temp.load()|endif
     endif
   endif
   return tree
@@ -285,15 +299,9 @@ fu! flux#line(line) "{
   if 1+comment|let line = line[0:comment-1]|endif
   return trim(line)
 endf "}
-fu! flux#line(line) "{
-  let line = a:line
-  let comment = match(line,'#')
-  if 1+comment|let line = line[0:comment-1]|endif
-  return trim(line)
-endf "}
-fu! flux#show() "{
+fu! flux#show(synx) "{
 
-  let tree = s:proj.tree
+  let tree = s:{a:synx}.tree
 
   let name = get(tree,'name','')
   let root = resolve(get(tree,'root',''))

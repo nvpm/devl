@@ -11,17 +11,13 @@ if !NVPMTEST&&exists('TESTAUTOLOAD')|finish|else|let TESTAUTOLOAD=1|endif
 
 fu! s:eval() dict  "{
 
-  "let read = self.read()
-
-  let lines = file#read(self.orig)
-
   try
+    let lines = file#read(self.orig)
     let self.tree = eval(join(lines))
     return 1
-  catch
-    let self.tree = {}
-    return 0
   endtry
+
+  return 0
 
 endf "}
 
@@ -33,9 +29,9 @@ fu! test#test() "{
   let self = {}
 
   let self.eval = function("s:eval")
-  let self.orig = ''
 
   let self.tree = {}
+  let self.orig = ''
 
   return self
 
