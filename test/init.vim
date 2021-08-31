@@ -1,5 +1,3 @@
-" saved {
-
 so plug/test/autoload/test.vim
 
 " file {
@@ -45,13 +43,35 @@ fu! s:flux.init()  " {
   so plug/flux/autoload/flux.vim
 
   for n in range(1,1)
-    call self.test(n)
+    call self.test(n,'','')
   endfor
 
 endf " }
-fu! s:flux.test(n) " {
+fu! s:flux.test(n,inpt,expt) " {
 
-  let expt = {'root': './', 'list': [{'root': './pr1', 'list': [{'root': './pr1/wr1', 'list':[{'root': './pr1/wr1/tr1', 'list': [{'file': '', 'name': 'b1'}, {'root': '.', 'name': 't1', 'comm': 'ranger'}], 'name': 't1', 'last': 0}], 'name': 'w1', 'last': 0}], 'name': 'p1', 'last': 0}], 'name': '1-inpt', 'last': 0}
+  let expt = {
+  \ 'root': './',
+  \ 'name': '1-inpt',
+  \ 'last': 0,
+  \ 'list': [{
+  \   'root': './pr1',
+  \   'name': 'p1',
+  \   'last': 0,
+  \   'list': [{
+  \     'root': './pr1/wr1',
+  \     'name': 'w1',
+  \     'last': 0,
+  \     'list':[{
+  \       'root': './pr1/wr1/tr1',
+  \       'name': 't1',
+  \       'last': 0,
+  \       'list': [
+  \         {'file': '' , 'name': 'b1'}, 
+  \         {'root': '.', 'name': 't1', 'comm': 'ranger'}],
+  \     }],
+  \   }],
+  \ }],
+  \ }
 
   let orig = 'test/flux/'.a:n.'-inpt'
   let tree = flux#flux(orig)
@@ -98,7 +118,3 @@ endf " }
 call s:file.init()
 call s:flux.init()
 call s:proj.init()
-
-" }
-
-

@@ -1,1 +1,0 @@
-{'root': './', 'list': [{'root': './pr1', 'list': [{'root': './pr1/wr1', 'list': [{'root': './pr1/wr1/tr1', 'list': [{'file': '', 'name': 'b1'}, {'root': '.', ' name': 't1', 'comm': 'ranger'}], 'name': 't1', 'last': 0}], 'name': 'w1', 'last' : 0}], 'name': 'p1', 'last': 0}], 'name': '1-inpt', 'last': 0}

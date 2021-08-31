@@ -1,0 +1,50 @@
+
+fu! s:proj.NODE(root) "{
+
+  let node = self.meta(a:root)
+
+  let self.pair = remove(self.pairs,0)
+  let self.curr = pair[0]
+  let self.next = pair[1]
+
+  let self.c = self.p+1
+  while self.c < self.linesnr && !self.stop
+    let line = flux#line(self.lines[self.c])
+    if (1+match(line,'^---'))|let self.stop=1|break|endif
+    if self.node(line,self.curr)|break|endif
+    if line=='-'
+      while 1
+        let self.c+=1
+        let self.p+=1
+        let line = flux#line(self.lines[self.c])
+        if self.node(line,self.next)
+          let self.c+=1
+          let self.p+=1
+          break
+        endif
+      endwhile
+      continue
+    endif
+    if 1+match(line,'^--')
+      while 1
+        let self.c+=1
+        let self.p+=1
+        let line = flux#line(self.lines[self.c])
+        if self.node(line,self.curr)|break|endif
+      endwhile
+      break
+    endif
+    if self.curr != 'buff'
+      let self.match = matchlist(line,s:rgex.proj[self.next])
+      if !empty(self.match)
+        if self.match[1]=='-'|let self.c+=1|let self.p+=1|continue|endif
+        call add(node.list,self.NODE(node.root))
+      endif
+    endif
+
+    let self.c+=1
+  endwhile
+
+  return node
+
+endf "}
