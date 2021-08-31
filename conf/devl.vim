@@ -6,6 +6,7 @@ hi NVPMTestFailed  guibg=#990000 guifg=#ffffff gui=bold
 hi NVPMTestWarning guibg=none    guifg=#ff0000 gui=bold
 
 let NVPMTEST = 1
+let NVPMTEST_timer_delay = 4000
 
 nmap <silent><F1> <esc>:silent! wall<cr>:NVPMTest<cr>
 imap <silent><F1> <esc>:silent! wall<cr>:NVPMTest<cr>

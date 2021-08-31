@@ -118,3 +118,9 @@ endf " }
 call s:file.init()
 call s:flux.init()
 call s:proj.init()
+
+fu! NVPMTestTimer(timer)
+  normal :<c-l><cr>
+endf
+
+call timer_start(NVPMTEST_timer_delay,'NVPMTestTimer')

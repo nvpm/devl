@@ -1,20 +1,3 @@
-# TESTS{
-
-workspace TESTS
-  tab init
-    buff init: test/init.vim
-  tab flux
-    buff 1-inpt: test/flux/1-inpt
-    buff 2-inpt: test/flux/2-inpt
-    buff 3-inpt: test/flux/3-inpt
-    buff 4-inpt: test/flux/4-inpt
- *tab proj
-    buff pf: .nvpm/proj/proj
- *tab file
-    buff read: test/file/read
-    buff orig: test/file/orig
-    buff dest: test/file/dest
-# }
 # flux {
 
 workspace flux
@@ -35,9 +18,26 @@ workspace flux
    *buff read: plug/flux/README.md
 
 # }
+# TESTS{
+
+workspace TESTS
+  tab init
+    buff init: test/init.vim
+  tab flux
+    buff 1-inpt: test/flux/1-inpt
+    buff 2-inpt: test/flux/2-inpt
+    buff 3-inpt: test/flux/3-inpt
+    buff 4-inpt: test/flux/4-inpt
+ *tab proj
+    buff pf: .nvpm/proj/proj
+ *tab file
+    buff read: test/file/read
+    buff orig: test/file/orig
+    buff dest: test/file/dest
+# }
 # proj {
 
-workspace proj
+*workspace proj
   tab proj
     buff auto: plug/proj/autoload/proj.vim
     buff plug: plug/proj/plugin/proj.vim
@@ -54,7 +54,7 @@ workspace proj
 # }
 # zoom {
 
-workspace zoom
+*workspace zoom
   tab zoom
     buff auto: plug/zoom/autoload/zoom.vim
     buff plug: plug/zoom/plugin/zoom.vim
@@ -115,7 +115,7 @@ workspace zoom
 # }
 # meta {
 
-workspace meta
+*workspace meta
   tab conf
     buff devl: conf/devl.vim
     buff user: conf/user.vim
