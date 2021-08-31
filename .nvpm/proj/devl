@@ -1,6 +1,6 @@
 # TESTS{
 
-workspace TESTS
+*workspace TESTS
   tab init
     buff init: test/init.vim
   tab flux
@@ -71,7 +71,7 @@ workspace flux
 # }
 # test {
 
-workspace test
+*workspace test
   tab test
     buff auto: plug/test/autoload/test.vim
    *buff plug: plug/test/plugin/test.vim
@@ -95,7 +95,7 @@ workspace test
 # }
 # file {
 
-workspace file
+*workspace file
   tab file
     buff auto: plug/file/autoload/file.vim
    *buff plug: plug/file/plugin/file.vim

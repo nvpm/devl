@@ -266,6 +266,7 @@ fu! s:temp.load() "{
   let tree = {}
 
   let self.tree = tree
+
   return tree
 
 endf "}
