@@ -261,6 +261,11 @@ fu! s:proj.eval() "{
 endf "}
 
 let s:temp = {}
+fu! s:temp.init() "{
+
+  let self.tree = {}
+
+endf "}
 fu! s:temp.load() "{
 
   let tree = {}
