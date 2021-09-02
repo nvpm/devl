@@ -24,6 +24,66 @@ let s:rgex.imux = {}
 " }
 " publ {
 
+let s:temp = {}
+let s:temp.rgex = {}
+let s:temp.rgex.name='^\s*\(-*\)\s*\(name\)\s*\(.*\)'
+let s:temp.rgex.root='^\s*\(-*\)\s*\(root\)\s*\(.*\)'
+let s:temp.rgex.proj='^\s*\(-*\)\s*\%(layout\|project\|proj\|pj\)\s*\(.*\)'
+let s:temp.rgex.wksp='^\s*\(-*\)\s*\%(workplace\|workspace\|area\|ws\)\s*\(.*\)'
+let s:temp.rgex.tabs='^\s*\(-*\)\s*\%(tab\|slot\|tb\)\s*\(.*\)'
+let s:temp.rgex.file='^\s*\(-*\)\s*\%(file\|buff\|bf\)\s*\(.*\)'
+let s:temp.rgex.term='^\s*\(-*\)\s*\%(terminal\|term\|tm\)\s*\(.*\)'
+fu! s:temp.init() "{
+
+  let self.tree = {}
+
+endf "}
+fu! s:temp.load() "{
+
+  let self.tree = {}
+
+  let self.linesnr = len(self.lines)
+
+  if self.linesnr
+
+    let self.tree.name = fnamemodify(self.orig,':t')
+    let self.tree.root = './'
+    let self.tree.list = []
+    let self.tree.last = 0
+    let proj_indexes = self.scan('proj',0)
+    let last = proj_indexes[0]
+    for i in range(last)
+      let line = flux#line(self.lines[i])
+      echo "'".line."'"
+    endfor
+
+  endif
+
+  return self.tree
+
+endf "}
+fu! s:temp.scan(...) "{
+
+  let node = a:000[0]
+  let i    = a:000[1]
+
+  let indexes = []
+  while i < self.linesnr
+
+    let line = flux#line(self.lines[i])
+
+    if self.type(line,node)|call add(indexes,i)|endif
+
+    let i+=1
+  endwhile
+
+  return indexes
+
+endf "}
+fu! s:temp.type(line,node) "{
+  return 1+match(a:line,self.rgex[a:node])
+endf "}
+
 let s:proj = {}
 
 fu! s:proj.meta(root) "{
@@ -260,22 +320,6 @@ endf "}
 fu! s:proj.eval() "{
 endf "}
 
-let s:temp = {}
-fu! s:temp.init() "{
-
-  let self.tree = {}
-
-endf "}
-fu! s:temp.load() "{
-
-  let tree = {}
-
-  let self.tree = tree
-
-  return tree
-
-endf "}
-
 " }
 " flux {
 
@@ -311,8 +355,10 @@ fu! flux#show(synx) "{
 
   let name = get(tree,'name','')
   let root = resolve(get(tree,'root',''))
-  echo '"name":"'.name.'"'
-  echo '"root":"'.root.'"'
+  if !empty(name) && !empty(root)
+    echo '"name":"'.name.'"'
+    echo '"root":"'.root.'"'
+  endif
 
   if !empty(tree)
     if exists('tree.list')

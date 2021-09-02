@@ -96,7 +96,7 @@ endf " }
 fu! s:proj.load() " {
 
   let tree = flux#flux('.nvpm/proj/proj','temp')
-  call flux#show('temp')
+  "call flux#show('temp')
 
 endf " }
 

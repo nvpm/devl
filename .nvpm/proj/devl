@@ -107,7 +107,7 @@ workspace flux
 # }
 # meta {
 
-*workspace meta
+workspace meta
   tab conf
     buff devl: conf/devl.vim
     buff user: conf/user.vim

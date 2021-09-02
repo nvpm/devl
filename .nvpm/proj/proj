@@ -1,17 +1,18 @@
 name PROJECT
 root ~/Downloads
-pj p1:pr1                              # pr1
-  ws w1:wr1                            # pr1/wr1
-    tb t1:tr1                          # pr1/wr1/tr1
-      bf b1:b1.txt                     # pr1/wr1/tr1/b1.txt
-      bf b2=b2.txt                     # pr1/wr1/tr1/b2.txt
-    tb t2=/usr/share/nvim/runtime/doc  # tr2
-      tm tm1:dir1@ranger
-      tm term:.@ranger
-  ws w2=wr2                            # pr1/wr2
-    tb t1:tr1                          # pr1/wr2/tr1
-      bf b1=b1.txt                     # b1.txt
-  ws w3:wr3                            # pr1/wr3
-pj p2:pr2                              # ~/pr2
-pj p3:pr3                              # ~/pr3
-pj p4:pr4                              # ~/pr4
+project p1:pr1                          # pr1
+  workspce w1:wr1                       # pr1/wr1
+    tab t1:tr1                          # pr1/wr1/tr1
+      file b1:b1.txt                    # pr1/wr1/tr1/b1.txt
+      file b2=b2.txt                    # pr1/wr1/tr1/b2.txt
+      file f3.txt                       # 
+    tab t2=/usr/share/nvim/runtime/doc  # tr2
+      term tm1:dir1@ranger
+      term term:.@ranger
+  worspce w2=wr2                        # pr1/wr2
+    tab t1:tr1                          # pr1/wr2/tr1
+      buff b1=b1.txt                    # b1.txt
+  workspace w3:wr3                      # pr1/wr3
+proj p2:pr2                             # ~/pr2
+proj p3:pr3                             # ~/pr3
+proj p4:pr4                             # ~/pr4
