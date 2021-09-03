@@ -40,45 +40,165 @@ fu! s:temp.init() "{
 endf "}
 fu! s:temp.load() "{
 
-  let self.tree = {}
+  let tree = {}
 
   let self.linesnr = len(self.lines)
 
   if self.linesnr
 
-    let self.tree.name = fnamemodify(self.orig,':t')
-    let self.tree.root = './'
-    let self.tree.list = []
-    let self.tree.last = 0
-    let proj_indexes = self.scan('proj',0)
-    let last = proj_indexes[0]
-    for i in range(last)
+    let tree.name = fnamemodify(self.orig,':t')
+    let tree.root = './'
+    let tree.list = []
+    let tree.last = 0
+
+    let i = 0
+
+    while i < self.linesnr
       let line = flux#line(self.lines[i])
-      echo "'".line."'"
-    endfor
+
+      let self.match = matchlist(line,self.rgex.name)
+      if !empty(self.match)
+        if self.match[1] == '--'|break|endif
+        if self.match[1] != '-' |let tree.name = self.match[3]|endif
+      endif
+      let self.match = matchlist(line,self.rgex.root)
+      if !empty(self.match)
+        if self.match[1] == '--'|break|endif
+        if self.match[1] != '-' |let tree.root = self.match[3]|endif
+      endif
+      let self.match = matchlist(line,self.rgex.proj)
+      if !empty(self.match)
+        if self.match[1] == '--'|break|endif
+        if self.match[1] != '-' 
+          call add(tree.list,self.proj(tree.root,i))
+        endif
+      endif
+
+      let i+=1
+    endwhile
 
   endif
 
-  return self.tree
+  let self.tree = tree
+  return tree
 
 endf "}
-fu! s:temp.scan(...) "{
+fu! s:temp.proj(root,i) "{
 
-  let node = a:000[0]
-  let i    = a:000[1]
+  let node = self.meta(a:root)
 
-  let indexes = []
+  let i = a:i+1
   while i < self.linesnr
-
     let line = flux#line(self.lines[i])
-
-    if self.type(line,node)|call add(indexes,i)|endif
-
+    if self.type(line,'proj')|break|endif
+    let self.match = matchlist(line,self.rgex.wksp)
+    if !empty(self.match)
+      if self.match[1] == '--'|break|endif
+      if self.match[1] != '-' 
+        call add(node.list,self.wksp(node.root,i))
+      endif
+    endif
     let i+=1
   endwhile
 
-  return indexes
+  return node
 
+endf "}
+fu! s:temp.wksp(root,i) "{
+
+  let node = self.meta(a:root)
+
+  let i = a:i+1
+  while i < self.linesnr
+    let line = flux#line(self.lines[i])
+    if self.type(line,'wksp')|break|endif
+    let self.match = matchlist(line,self.rgex.tabs)
+    if !empty(self.match)
+      if self.match[1] == '--'|break|endif
+      if self.match[1] != '-' 
+        call add(node.list,self.tabs(node.root,i))
+      endif
+    endif
+    let i+=1
+  endwhile
+
+  return node
+
+endf "}
+fu! s:temp.tabs(root,i) "{
+
+  let node = self.meta(a:root)
+
+  let i = a:i+1
+  while i < self.linesnr
+    let line = flux#line(self.lines[i])
+    if self.type(line,'tabs')|break|endif
+    let self.match = matchlist(line,self.rgex.file)
+    if !empty(self.match)
+      if self.match[1] == '--'|break|endif
+      if self.match[1] != '-' 
+        call add(node.list,self.file(node.root))
+      endif
+    endif
+    let self.match = matchlist(line,self.rgex.term)
+    if !empty(self.match)
+      if self.match[1] == '--'|break|endif
+      if self.match[1] != '-' 
+        call add(node.list,self.term(node.root))
+      endif
+    endif
+    let i+=1
+  endwhile
+
+  return node
+
+endf "}
+fu! s:temp.file(root) "{
+
+  let node = self.meta(a:root)
+  let node.file = resolve(node.root)
+  unlet node.root
+  unlet node.last
+  unlet node.list
+  return node
+
+endf "}
+fu! s:temp.term(root) "{
+
+  let node={}
+  let split=split(self.match[2],'@',1)
+  let name = trim(get(split,0,''))
+  let comm = trim(get(split,1,''))
+
+  let split=split(name,'[:=]',1)
+
+  let name = trim(get(split,0,''))
+  let root = trim(get(split,1,''))
+
+  if !empty(root)&&!(1+match(self.match[2],'='))
+    let root = a:root.'/'.root
+  endif
+
+  let node.name = name
+  let node.comm = comm
+  let node.root = empty(root)?'.':resolve(root)
+
+  return node
+
+endf "}
+fu! s:temp.meta(root) "{
+  let node={}
+  let split=split(self.match[2],'[:=]',1)
+  let node.name=trim(split[0])
+  let node.root = len(split)==1?'':trim(split[1])
+  let node.root = empty(node.root)?'':node.root.'/'
+  if 1+match(self.match[2],':')
+    let node.root = [a:root.'/'.node.root,node.root][empty(a:root)]
+  endif
+  "let node.root = resolve(node.root)
+  let node.list = []
+  let node.last = 0
+  return node
 endf "}
 fu! s:temp.type(line,node) "{
   return 1+match(a:line,self.rgex[a:node])
