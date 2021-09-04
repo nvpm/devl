@@ -95,8 +95,8 @@ fu! s:proj.init() " {
 endf " }
 fu! s:proj.load() " {
 
-  let tree = flux#flux('.nvpm/proj/proj','temp')
-  call flux#show('temp')
+  let tree = flux#flux('.nvpm/proj/proj','proj')
+  call flux#show('proj')
 
 endf " }
 
