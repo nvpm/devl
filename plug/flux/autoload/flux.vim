@@ -30,13 +30,26 @@ fu! s:proj.load() "{
     let tree.root = './'
     let tree.list = []
     let tree.last = 0
-    let proj = 0
+    let foundproj = 0
+    let foundwksp = 0
+    let foundtabs = 0
 
     let i = 0
 
     while i < self.linesnr
       let line = flux#line(self.lines[i])
 
+      let self.match = matchlist(line,self.rgex.proj)
+      if !empty(self.match)
+        let foundproj = 1
+      endif
+      let self.match = matchlist(line,self.rgex.wksp)
+      if !empty(self.match) && !foundproj
+        if self.match[1] == '--'|break|endif
+        if self.match[1] != '-'
+          call add(tree.list,self.wksp(tree.root,i))
+        endif
+      endif
       let i+=1
     endwhile
 
@@ -59,7 +72,7 @@ fu! s:proj.proj(root,i) "{
     let self.match = matchlist(line,self.rgex.wksp)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
-      if self.match[1] != '-' 
+      if self.match[1] != '-'
         call add(node.list,self.wksp(node.root,i))
       endif
     endif
@@ -82,7 +95,7 @@ fu! s:proj.wksp(root,i) "{
     let self.match = matchlist(line,self.rgex.tabs)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
-      if self.match[1] != '-' 
+      if self.match[1] != '-'
         call add(node.list,self.tabs(node.root,i))
       endif
     endif
@@ -105,14 +118,14 @@ fu! s:proj.tabs(root,i) "{
     let self.match = matchlist(line,self.rgex.file)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
-      if self.match[1] != '-' 
+      if self.match[1] != '-'
         call add(node.list,self.file(node.root))
       endif
     endif
     let self.match = matchlist(line,self.rgex.term)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
-      if self.match[1] != '-' 
+      if self.match[1] != '-'
         call add(node.list,self.term(node.root))
       endif
     endif

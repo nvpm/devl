@@ -1,10 +1,10 @@
 proj {
-  
+
 1. The multi-terminals problem:
 
   I've  just noticed that the problem is solely related to the cycling itself,
   not the  buffer  creation. As soon as the terminal is killed, the tree loses
   consistency because  the terminal in question, along with its process id, no
-  longer exists. 
+  longer exists.
 
-}                                                                            
+}
