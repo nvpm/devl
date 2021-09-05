@@ -37,25 +37,6 @@ fu! s:proj.load() "{
     while i < self.linesnr
       let line = flux#line(self.lines[i])
 
-      "if 1+match(line,'^---')|break|endif
-      "let self.match = matchlist(line,self.rgex.name)
-      "if !empty(self.match)
-        "if self.match[1] == '--'|break|endif
-        "if self.match[1] != '-' |let tree.name = self.match[3]|endif
-      "endif
-      "let self.match = matchlist(line,self.rgex.root)
-      "if !empty(self.match)
-        "if self.match[1] == '--'|break|endif
-        "if self.match[1] != '-' |let tree.root = self.match[3]|endif
-      "endif
-      "let self.match = matchlist(line,self.rgex.proj)
-      "if !empty(self.match)
-        "if self.match[1] == '--'|break|endif
-        "if self.match[1] != '-' 
-          "call add(tree.list,self.proj(tree.root,i))
-        "endif
-      "endif
-
       let i+=1
     endwhile
 
