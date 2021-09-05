@@ -15,7 +15,7 @@ let s:proj.rgex.name='^\s*\(-*\)\s*\(name\)\s*\(.*\)'
 let s:proj.rgex.root='^\s*\(-*\)\s*\(root\)\s*\(.*\)'
 let s:proj.rgex.proj='^\s*\(-*\)\s*\%(layout\|project\|proj\|pj\)\s*\(.*\)'
 let s:proj.rgex.wksp='^\s*\(-*\)\s*\%(workplace\|workspace\|area\|ws\)\s*\(.*\)'
-let s:proj.rgex.tabs='^\s*\(-*\)\s*\%(tab\|slot\|tb\)\s*\(.*\)'
+let s:proj.rgex.slot='^\s*\(-*\)\s*\%(tab\|slot\|tb\)\s*\(.*\)'
 let s:proj.rgex.file='^\s*\(-*\)\s*\%(file\|buff\|bf\)\s*\(.*\)'
 let s:proj.rgex.term='^\s*\(-*\)\s*\%(terminal\|term\|tm\)\s*\(.*\)'
 fu! s:proj.load() "{
@@ -30,27 +30,95 @@ fu! s:proj.load() "{
     let tree.root = './'
     let tree.list = []
     let tree.last = 0
-    let foundproj = 0
-    let foundwksp = 0
-    let foundtabs = 0
+    let find = {}
+    let find.proj = 0
+    let find.wksp = 0
+    let find.slot = 0
+    let find.file = 0
+    let find.term = 0
+    "let foundproj = 0
+    "let foundwksp = 0
+    "let foundslot = 0
+    "let foundfile = 0
+    "let foundterm = 0
 
     let i = 0
 
     while i < self.linesnr
       let line = flux#line(self.lines[i])
 
-      let self.match = matchlist(line,self.rgex.proj)
+      if 1+match(line,'^---')|break|endif
+      let self.match = matchlist(line,self.rgex.name)
       if !empty(self.match)
-        let foundproj = 1
-      endif
-      let self.match = matchlist(line,self.rgex.wksp)
-      if !empty(self.match) && !foundproj
         if self.match[1] == '--'|break|endif
-        if self.match[1] != '-'
-          call add(tree.list,self.wksp(tree.root,i))
-        endif
+        if self.match[1] != '-' |let tree.name = self.match[3]|endif
       endif
+      let self.match = matchlist(line,self.rgex.root)
+      if !empty(self.match)
+        if self.match[1] == '--'|break|endif
+        if self.match[1] != '-' |let tree.root = self.match[3]|endif
+      endif
+
+      if self.list(line,'proj',tree,[],i,find)|break|endif
+      if self.list(line,'wksp',tree,['proj'],i,find)|break|endif
+      if self.list(line,'slot',tree,['proj','wksp'],i,find)|break|endif
+      if self.list(line,'file',tree,['proj','wksp','slot'],i,find)|break|endif
+      if self.list(line,'term',tree,['proj','wksp','slot'],i,find)|break|endif
+
       let i+=1
+
+      "{
+      "let self.match = matchlist(line,self.rgex.proj)
+      "if !empty(self.match)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.proj(tree.root,i))
+        "endif
+        "let foundproj = 1
+      "endif
+      "let self.match = matchlist(line,self.rgex.wksp)
+      "if !empty(self.match) && !foundproj
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.wksp(tree.root,i))
+        "endif
+        "let foundwksp = 1
+        "let foundproj = 0
+      "endif
+      "let self.match = matchlist(line,self.rgex.slot)
+      "if !empty(self.match) && (!foundproj&&!foundwksp)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.slot(tree.root,i))
+        "endif
+        "let foundslot = 1
+        "let foundwksp = 0
+        "let foundproj = 0
+      "endif
+      "let self.match = matchlist(line,self.rgex.file)
+      "if !empty(self.match) && (!foundproj&&!foundwksp&&!foundslot)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.file(tree.root))
+        "endif
+        "let foundfile = 1
+        "let foundslot = 0
+        "let foundwksp = 0
+        "let foundproj = 0
+      "endif
+      "let self.match = matchlist(line,self.rgex.term)
+      "if !empty(self.match) && (!foundproj&&!foundwksp&&!foundslot)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.term(tree.root))
+        "endif
+        "let foundterm = 1
+        "let foundslot = 0
+        "let foundwksp = 0
+        "let foundproj = 0
+      "endif
+      "}
+
     endwhile
 
   endif
@@ -59,16 +127,46 @@ fu! s:proj.load() "{
   return tree
 
 endf "}
+fu! s:proj.list(...) "{
+
+  let [line,type,node,upper,i,find] = a:000
+
+  let foundupper = 0
+
+  for u in upper
+    let foundupper = foundupper||find[u]
+  endfor
+
+  let self.match = matchlist(line,self.rgex[type])
+  if !empty(self.match) && !foundupper
+    if self.match[1] == '--'|return 1|endif
+    if self.match[1] != '-'
+      call add(node.list,self[type](node.root,i))
+    endif
+    let find[type] = 1
+    for u in upper
+      let find[u] = 0
+    endfor
+  endif
+  return 0
+
+endf "}
 fu! s:proj.proj(root,i) "{
 
   let node = self.meta(a:root)
   let node.type = 'proj'
+
+  let foundwksp = 0
+  let foundslot = 0
+  let foundfile = 0
+  let foundterm = 0
 
   let i = a:i+1
   while i < self.linesnr
     let line = flux#line(self.lines[i])
     if 1+match(line,'^---')|break|endif
     if self.type(line,'proj')|break|endif
+
     let self.match = matchlist(line,self.rgex.wksp)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
@@ -76,6 +174,37 @@ fu! s:proj.proj(root,i) "{
         call add(node.list,self.wksp(node.root,i))
       endif
     endif
+
+    "let self.match = matchlist(line,self.rgex.slot)
+    "if !empty(self.match) && (!foundwksp)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.slot(node.root,i))
+      "endif
+      "let foundslot = 1
+      "let foundwksp = 0
+    "endif
+    "let self.match = matchlist(line,self.rgex.file)
+    "if !empty(self.match) && (!foundwksp&&!foundslot)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.file(node.root))
+      "endif
+      "let foundfile = 1
+      "let foundslot = 0
+      "let foundwksp = 0
+    "endif
+    "let self.match = matchlist(line,self.rgex.term)
+    "if !empty(self.match) && (!foundwksp&&!foundslot)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.term(node.root))
+      "endif
+      "let foundterm = 1
+      "let foundslot = 0
+      "let foundwksp = 0
+    "endif
+
     let i+=1
   endwhile
 
@@ -92,11 +221,11 @@ fu! s:proj.wksp(root,i) "{
     let line = flux#line(self.lines[i])
     if 1+match(line,'^---')|break|endif
     if self.type(line,'wksp')|break|endif
-    let self.match = matchlist(line,self.rgex.tabs)
+    let self.match = matchlist(line,self.rgex.slot)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
       if self.match[1] != '-'
-        call add(node.list,self.tabs(node.root,i))
+        call add(node.list,self.slot(node.root,i))
       endif
     endif
     let i+=1
@@ -105,16 +234,16 @@ fu! s:proj.wksp(root,i) "{
   return node
 
 endf "}
-fu! s:proj.tabs(root,i) "{
+fu! s:proj.slot(root,i) "{
 
   let node = self.meta(a:root)
-  let node.type = 'taby'
+  let node.type = 'slot'
 
   let i = a:i+1
   while i < self.linesnr
     let line = flux#line(self.lines[i])
     if 1+match(line,'^---')|break|endif
-    if self.type(line,'tabs')|break|endif
+    if self.type(line,'slot')|break|endif
     let self.match = matchlist(line,self.rgex.file)
     if !empty(self.match)
       if self.match[1] == '--'|break|endif
@@ -135,9 +264,11 @@ fu! s:proj.tabs(root,i) "{
   return node
 
 endf "}
-fu! s:proj.file(root) "{
+fu! s:proj.file(...) "{
 
-  let node = self.meta(a:root)
+  let [root,i] = a:000
+
+  let node = self.meta(root)
   let node.file = resolve(node.root)
   let node.type = 'file'
   unlet node.root
@@ -146,7 +277,9 @@ fu! s:proj.file(root) "{
   return node
 
 endf "}
-fu! s:proj.term(root) "{
+fu! s:proj.term(...) "{
+
+  "let [root,i] = a:000
 
   let node={}
   let split=split(self.match[2],'@',1)
@@ -159,7 +292,7 @@ fu! s:proj.term(root) "{
   let root = trim(get(split,1,''))
 
   if !empty(root)&&!(1+match(self.match[2],'='))
-    let root = a:root.(!empty(a:root)?'/':'').root
+    let root = a:000[0].(!empty(a:000[0])?'/':'').root
   endif
 
   let node.name = name
