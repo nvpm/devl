@@ -1,29 +1,18 @@
 name PROJECT
 root ~/Downloads
-
-#proj p1:pr1
-
-#workspace w1:wr1
-tab t1:tr1
-file b1:b1.txt
-file b2:b2.txt
-term term@ranger
-
-#name PROJECT
-#root ~/Downloads
-#proj p1:pr1
-#  workspace w1:wr1
-#    tab t1:tr1
-#      file b1:b1.txt
-#      file b2=b2.txt
-#      file f3.txt
-#    tab t2=/usr/share/nvim/runtime/doc
-#      term tm1:dir1@ranger
-#      term term:.@ranger
-#  workspace w2=wr2
-#    tab t1:tr1
-#      buff b1=b1.txt
-#  workspace w3:wr3
-#proj p2:pr2
-#proj p3:pr3
-#proj p4:pr4
+proj p1:pr1
+  workspace w1:wr1
+    tab t1:tr1
+      file b1:b1.txt
+      file b2=b2.txt
+      file f3.txt
+    tab t2=/usr/share/nvim/runtime/doc
+      term tm1:dir1@ranger
+      term term:.@ranger
+  workspace w2=wr2
+    tab t1:tr1
+      buff b1=b1.txt
+  workspace w3:wr3
+proj p2:pr2
+proj p3:pr3
+proj p4:pr4

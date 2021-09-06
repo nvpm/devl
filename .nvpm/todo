@@ -12,7 +12,7 @@ flux {
   responsible   for   the   IO   operations.  Flux  will  only  be  a  parser.
 
 }
-proj                                                                       {
+proj {
 
   * Better proj loaded test variable (the old g:nvpm.data.loaded variable). A use case study must be made in order to determine the state of the tree variable.
 

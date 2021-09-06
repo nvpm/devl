@@ -18,3 +18,46 @@
       "endif
 
 
+      "{
+      "let self.match = matchlist(line,self.rgex.wksp)
+      "if !empty(self.match) && !foundproj
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.wksp(tree.root,i))
+        "endif
+        "let foundwksp = 1
+        "let foundproj = 0
+      "endif
+      "let self.match = matchlist(line,self.rgex.slot)
+      "if !empty(self.match) && (!foundproj&&!foundwksp)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.slot(tree.root,i))
+        "endif
+        "let foundslot = 1
+        "let foundwksp = 0
+        "let foundproj = 0
+      "endif
+      "let self.match = matchlist(line,self.rgex.file)
+      "if !empty(self.match) && (!foundproj&&!foundwksp&&!foundslot)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.file(tree.root))
+        "endif
+        "let foundfile = 1
+        "let foundslot = 0
+        "let foundwksp = 0
+        "let foundproj = 0
+      "endif
+      "let self.match = matchlist(line,self.rgex.term)
+      "if !empty(self.match) && (!foundproj&&!foundwksp&&!foundslot)
+        "if self.match[1] == '--'|break|endif
+        "if self.match[1] != '-'
+          "call add(tree.list,self.term(tree.root))
+        "endif
+        "let foundterm = 1
+        "let foundslot = 0
+        "let foundwksp = 0
+        "let foundproj = 0
+      "endif
+      "}
