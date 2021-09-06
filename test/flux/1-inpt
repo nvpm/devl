@@ -1,6 +1,0 @@
-proj p1:pr1 # {
-  area w1:wr1
-    slot t1:tr1
-      file b1
-      term t1@ranger
-# }
