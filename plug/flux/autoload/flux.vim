@@ -18,13 +18,13 @@ let s:flux.match = []
 
 let s:proj = {}
 let s:proj.rgex = {}
-let s:proj.rgex.name='^\s*\(-*\)\s*\(name\)\s*\(.*\)'
-let s:proj.rgex.root='^\s*\(-*\)\s*\(root\)\s*\(.*\)'
-let s:proj.rgex.proj='^\s*\(-*\)\s*\%(layout\|project\|proj\|pj\)\s*\(.*\)'
-let s:proj.rgex.wksp='^\s*\(-*\)\s*\%(workplace\|workspace\|area\|ws\)\s*\(.*\)'
-let s:proj.rgex.slot='^\s*\(-*\)\s*\%(tab\|slot\|tb\)\s*\(.*\)'
-let s:proj.rgex.file='^\s*\(-*\)\s*\%(file\|buff\|bf\)\s*\(.*\)'
-let s:proj.rgex.term='^\s*\(-*\)\s*\%(terminal\|term\|tm\)\s*\(.*\)'
+let s:proj.rgex.name='^\(-*\)\s*\(name\)\s*\(.*\)'
+let s:proj.rgex.root='^\(-*\)\s*\(root\)\s*\(.*\)'
+let s:proj.rgex.proj='^\(-*\)\s*\%(layout\|project\|proj\|pj\)\s*\(.*\)'
+let s:proj.rgex.wksp='^\(-*\)\s*\%(workplace\|workspace\|area\|ws\)\s*\(.*\)'
+let s:proj.rgex.slot='^\(-*\)\s*\%(tab\|slot\|tb\)\s*\(.*\)'
+let s:proj.rgex.file='^\(-*\)\s*\%(file\|buff\|bf\)\s*\(.*\)'
+let s:proj.rgex.term='^\(-*\)\s*\%(terminal\|term\|tm\)\s*\(.*\)'
 fu! s:proj.load(...) "{
 
   let tree = {}
