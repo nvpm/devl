@@ -95,7 +95,7 @@ workspace flux
 # }
 # file {
 
-*workspace file
+workspace file
   tab file
     buff auto: plug/file/autoload/file.vim
    *buff plug: plug/file/plugin/file.vim
