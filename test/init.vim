@@ -46,8 +46,9 @@ so plug/flux/autoload/flux.vim
 so plug/proj/autoload/proj.vim
 so plug/proj/plugin/proj.vim
 
-let tree = flux#flux('.nvpm/proj/proj','proj')
-call s:show(tree)
+Proj proj
+
+call s:show(proj.tree)
 
 fu! NVPMTestTimer(timer)
   normal :<c-l><cr>

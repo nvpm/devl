@@ -1,3 +1,62 @@
+
+
+
+
+
+let s:proj = {}
+let s:proj.curr = {}
+let s:proj.line = {}
+let s:proj.tree = {}
+
+fu! s:proj.curr.init(...) "{
+  let self.p = 0
+  let self.w = 0
+  let self.t = 0
+  let self.b = 0
+endf "}
+fu! s:proj.curr.edit(...) "{
+endf "}
+fu! s:proj.curr.list(...) "{
+endf "}
+fu! s:proj.curr.item(...) "{
+endf "}
+fu! s:proj.curr.loop(...) "{
+endf "}
+fu! s:proj.curr.last(...) "{
+endf "}
+
+fu! s:proj.line.init(...) "{
+endf "}
+fu! s:proj.line.topl(...) "{
+endf "}
+fu! s:proj.line.botl(...) "{
+endf "}
+fu! s:proj.line.show(...) "{
+endf "}
+fu! s:proj.line.hide(...) "{
+endf "}
+fu! s:proj.line.swap(...) "{
+endf "}
+
+fu! proj#proj(...) "{
+  call s:proj.curr.init()
+  call s:proj.line.init()
+  return s:proj
+endf "}
+fu! proj#load(...) "{
+  let [file] = a:000
+  let s:proj.file = '.nvpm/proj/'.file
+  let s:proj.tree = flux#flux(s:proj.file,'proj')
+  " Update Last Position
+  call s:proj.curr.last()
+  " Edit Current Buffer
+  call s:proj.curr.edit()
+  " Show Top and Bottom Lines
+  call s:proj.line.show()
+endf "}
+
+finish
+
 let s:proj = {}
 let s:proj.tree = {}
 
@@ -61,10 +120,10 @@ fu! s:proj.buff(    ) "{
 
 endf "}
 fu!   proj#proj(    ) "{
-  let s:proj.p = 0
-  let s:proj.w = 0
-  let s:proj.t = 0
-  let s:proj.b = 0
+  let s:proj.curr.p = 0
+  let s:proj.curr.w = 0
+  let s:proj.curr.t = 0
+  let s:proj.curr.b = 0
   return s:proj
 endf "}
 fu!   proj#proc(    ) "{
