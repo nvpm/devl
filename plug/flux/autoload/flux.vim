@@ -239,13 +239,6 @@ fu! flux#flux(...) "{
     echon 'file: no such file "'.s:flux.path.'"'
   endtry
   if !empty(s:flux.file)|return s:{s:flux.synx}.load()|endif
-  "if !empty(a:000)
-    "if len(a:000)==1||a:000[1]=='proj'
-      "if !empty(lines)|return s:proj.load()|endif
-    "elseif a:000[1]=='iris'
-    "elseif a:000[1]=='line'
-    "elseif a:000[1]=='imux'
-  "endif
   return {}
 
 endf "}
@@ -254,48 +247,6 @@ fu! flux#line(...) "{
   let comment = match(line,'#')
   if 1+comment|let line = line[0:comment-1]|endif
   return trim(line)
-endf "}
-fu! flux#show(...) "{
-  let [synx] = a:000
-
-  let tree = s:{synx}.tree
-
-  let name = get(tree,'name','')
-  let root = resolve(get(tree,'root',''))
-  if !empty(name) && !empty(root)
-    echo '"name":"'.name.'"'
-    echo '"root":"'.root.'"'
-  endif
-
-  if !empty(tree)
-    if exists('tree.list')
-      for proj in tree.list
-        let name = get(proj,'name','')
-        let root = resolve(get(proj,'root',''))
-        echo '"'.name.'":"'.root.'"'
-        if exists('proj.list')
-          for wksp in proj.list
-            let name = get(wksp,'name','')
-            let root = resolve(get(wksp,'root',''))
-            echo '  "'.name.'":"'.root.'"'
-            if exists('wksp.list')
-              for slot in wksp.list
-                let name = get(slot,'name','')
-                let root = resolve(get(slot,'root',''))
-                echo '    "'.name.'":"'.root.'"'
-                if exists('slot.list')
-                  for buff in slot.list
-                    echo '      '.string(buff)
-                  endfor
-                endif
-              endfor
-            endif
-          endfor
-        endif
-      endfor
-    endif
-  endif
-
 endf "}
 
 " }
