@@ -61,3 +61,64 @@
         "let foundproj = 0
       "endif
       "}
+----- proj
+
+    "let self.match = matchlist(line,self.rgex.wksp)
+    "if !empty(self.match)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.wksp(node.root,i))
+      "endif
+    "endif
+
+    "let self.match = matchlist(line,self.rgex.slot)
+    "if !empty(self.match) && (!foundwksp)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.slot(node.root,i))
+      "endif
+      "let foundslot = 1
+      "let foundwksp = 0
+    "endif
+    "let self.match = matchlist(line,self.rgex.file)
+    "if !empty(self.match) && (!foundwksp&&!foundslot)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.file(node.root))
+      "endif
+      "let foundfile = 1
+      "let foundslot = 0
+      "let foundwksp = 0
+    "endif
+    "let self.match = matchlist(line,self.rgex.term)
+    "if !empty(self.match) && (!foundwksp&&!foundslot)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.term(node.root))
+      "endif
+      "let foundterm = 1
+      "let foundslot = 0
+      "let foundwksp = 0
+    "endif
+
+    "let self.match = matchlist(line,self.rgex.slot)
+    "if !empty(self.match)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.slot(node.root,i))
+      "endif
+    "endif
+    "let self.match = matchlist(line,self.rgex.file)
+    "if !empty(self.match)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.file(node.root))
+      "endif
+    "endif
+    "let self.match = matchlist(line,self.rgex.term)
+    "if !empty(self.match)
+      "if self.match[1] == '--'|break|endif
+      "if self.match[1] != '-'
+        "call add(node.list,self.term(node.root))
+      "endif
+    "endif
